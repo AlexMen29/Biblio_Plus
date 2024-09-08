@@ -30,8 +30,8 @@
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch" Margin="10" Content="Mi estante" Width="150" VerticalAlignment="Top" Cursor="Hand"/>
-                    <Button HorizontalAlignment="Stretch" Margin="10" Content="miau" Width="150"> 
-                        
+                    <Button HorizontalAlignment="Stretch" Margin="10" Content="miau" Width="150">
+
                     </Button>
                 </StackPanel>
 
@@ -45,12 +45,11 @@
                    VerticalAlignment="Top"
                    Margin="20,30,25,0"
                    Grid.Column="1" />
-
             <!-- Agrega un ScrollViewer para la sección de títulos -->
             <ScrollViewer Grid.Column="1"
-                          Margin="20,60,20,20"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalAlignment="Center">
+              Margin="20,60,20,20"
+              VerticalScrollBarVisibility="Auto"
+              HorizontalAlignment="Center">
 
                 <ItemsControl x:Name="contentGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <ItemsControl.ItemsPanel>
@@ -61,15 +60,13 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-
-                            <StackPanel Margin="10" Width="150">
-
+                            <StackPanel Margin="10" Width="120">
                                 <!-- Imagen con efecto hover usando transformaciones -->
-                                <Border Width="150" Height="100">
+                                <Border Width="120" Height="180">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
                                     </Border.Effect>
-                                    <Image Source="{Binding ImageData}" Width="150" Height="100" Stretch="UniformToFill">
+                                    <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
                                         <Image.RenderTransform>
                                             <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
                                         </Image.RenderTransform>
