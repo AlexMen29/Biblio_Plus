@@ -23,14 +23,21 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Vertical" Margin="0,150,0,0" Grid.RowSpan="2">
-                    <Button HorizontalAlignment="Stretch" Margin="10" Width="150" VerticalAlignment="Top">
+                    <Button x:Name="btnInicio" HorizontalAlignment="Stretch" Margin="10" Width="150" VerticalAlignment="Top" Cursor="Hand">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color = "#9e1717"/>
+                                <GradientStop Color = "#b0191a" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Home" Margin="0 3 5 0" />
                             <TextBlock Text="Inicio" VerticalAlignment="Center" />
                         </StackPanel>
+
                     </Button>
                     <Button HorizontalAlignment="Stretch" Margin="10" Content="Mi estante" Width="150" VerticalAlignment="Top" Cursor="Hand"/>
-                    <Button HorizontalAlignment="Stretch" Margin="10" Content="miau" Width="150">
+                    <Button HorizontalAlignment="Stretch" Margin="10" Content="Libros" Width="150" Click="Button_Click">
 
                     </Button>
                 </StackPanel>
@@ -45,67 +52,15 @@
                    VerticalAlignment="Top"
                    Margin="20,30,25,0"
                    Grid.Column="1" />
-            <!-- Agrega un ScrollViewer para la sección de títulos -->
-            <ScrollViewer Grid.Column="1"
-              Margin="20,60,20,20"
-              VerticalScrollBarVisibility="Auto"
-              HorizontalAlignment="Center">
 
-                <ItemsControl x:Name="contentGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="10" Width="120">
-                                <!-- Imagen con efecto hover usando transformaciones -->
-                                <Border Width="120" Height="180">
-                                    <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
-                                    </Border.Effect>
-                                    <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
-                                        <Image.RenderTransform>
-                                            <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                                        </Image.RenderTransform>
-                                        <Image.Triggers>
-                                            <!-- Trigger para cuando el cursor esté sobre la imagen -->
-                                            <EventTrigger RoutedEvent="MouseEnter">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.2"/>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.2"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                            <EventTrigger RoutedEvent="MouseLeave">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.2"/>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.2"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Image.Triggers>
-                                    </Image>
-                                </Border>
-                                <!-- Nombre -->
-                                <TextBlock Text="{Binding nombre}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
-                                <!-- Tipo -->
-                                <TextBlock Text="{Binding tipo}" Foreground="Black" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
 
+            <!-- Rectangulos superiores -->
             <Rectangle Margin="0,0,0,0" VerticalAlignment="Top" Height="25" Grid.Column="1">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#050b2b"/>
-                        <GradientStop Color="#FF2196F3" Offset="1"/>
+                        <GradientStop Color = "#8d1415"/>
+                        <GradientStop Color = "#b0191a" Offset="0.5"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
@@ -113,19 +68,16 @@
             <Rectangle Margin="0,0,0,0" VerticalAlignment="Top" Height="25" Grid.Column="0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#050b2b"/>
-                        <GradientStop Color="#FF2196F3" Offset="1"/>
+                        <GradientStop Color = "#8d1415"/>
+                        <GradientStop Color = "#b0191a" Offset="0.5"/>
                     </LinearGradientBrush>
-
-
                 </Rectangle.Fill>
             </Rectangle>
 
             <Grid Margin="0,0,0,0" VerticalAlignment="Top" Height="25" Grid.Column="0">
                 <Label Content="Biblio Plus" FontSize="16" Foreground="White" FontWeight="Bold"/>
-
             </Grid>
-
+            <!-- Elementos de menu superior -->
             <StackPanel Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Margin="5,0,10,0" Orientation="Horizontal">
                 <Button Background="Transparent" VerticalAlignment="Stretch">
                     <materialDesign:PackIcon Kind="Cog"/>
@@ -134,6 +86,13 @@
                     <materialDesign:PackIcon Kind="AccountCircle"/>
                 </Button>
             </StackPanel>
+
+            <Frame  Grid.ColumnSpan="1" Grid.Column="1" Margin="18,30,22,10" x:Name="frContenido"> 
+                
+            </Frame>
+
+            <Image Name ="ImgLogo" Source="Assets\logo itca.png" Margin="200,200" Grid.Column="1"/>
+
         </Grid>
     </Border>
 </Window>

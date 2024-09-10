@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using MenuPrincipal.FrmMenu;
 
 namespace MenuPrincipal
 {
@@ -23,7 +24,7 @@ namespace MenuPrincipal
         public MainWindow()
         {
             InitializeComponent();
-            CargarDatos();
+            
 
         }
 
@@ -62,58 +63,14 @@ namespace MenuPrincipal
 
         }
 
-
-        private string connectionString = "Data Source=DESKTOP-03IRMT5\\SQLEXPRESS;Initial Catalog=baseAlex;Integrated Security=True;TrustServerCertificate=True;";
-    
-        private void CargarDatos()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM prueba";
-                    SqlCommand command = new SqlCommand(query, connection);
+            PgLibros Page1= new PgLibros();
+            frContenido.NavigationService.Navigate(Page1);
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
+            ImgLogo.Visibility=Visibility.Hidden;
 
-                    // Crear una nueva columna para las imágenes
-                    dataTable.Columns.Add("ImageData", typeof(BitmapImage));
-
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        if (row["imagen"] != DBNull.Value)
-                        {
-                            byte[] imageBytes = (byte[])row["imagen"];
-                            BitmapImage bitmapImage = ConvertirABitmapImage(imageBytes);
-                            row["ImageData"] = bitmapImage;
-                        }
-                    }
-
-                    // Asignar los datos al ItemsControl
-                    contentGrid.ItemsSource = dataTable.DefaultView;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al conectar a la base de datos: {ex.Message}");
-            }
-        }
-
-        // Método para convertir un array de bytes a BitmapImage
-        private BitmapImage ConvertirABitmapImage(byte[] imageBytes)
-        {
-            using (var ms = new System.IO.MemoryStream(imageBytes))
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
-            }
+          
         }
     }
 }
