@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
-using System.Data;
+using MenuPrincipal.PageReport;
 using Microsoft.Data.SqlClient;
 using MenuPrincipal.FrmMenu;
 
@@ -71,6 +71,13 @@ namespace MenuPrincipal
             ImgLogo.Visibility=Visibility.Hidden;
 
           
+        }
+
+        private void btnreport_Click(object sender, RoutedEventArgs e)
+        {
+            Report page2 = new Report();
+            frContenido.NavigationService.Navigate(page2);
+            ImgLogo.Visibility=Visibility.Hidden;
         }
     }
 }

@@ -1,0 +1,168 @@
+﻿<Page x:Class="MenuPrincipal.PageReport.Report"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MenuPrincipal.PageReport"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="840"
+      Title="Report">
+    <Grid>
+        <!-- Título principal del reporte -->
+        <TextBlock Text="Generador de Reportes"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,20,0,0"/>
+
+        <!-- Separador horizontal -->
+        <Separator Margin="20,60,20,0" VerticalAlignment="Top"/>
+
+        <!-- Contenido principal de los reportes -->
+        <TabControl Margin="10,80,10,20" Cursor="Hand">
+            <!-- Reporte de Libros -->
+            <TabItem Header="Libros">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                        <TextBlock Text="Reporte de Libros" FontSize="18" FontWeight="Bold"/>
+
+                        <!-- Filtros de Libros: Clasificación por Tema, Autor, Especialidad -->
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                            <TextBlock Text="Tema:" VerticalAlignment="Center" Width="50"/>
+                            <ComboBox Width="140" Margin="5,0,20,0">
+                                <ComboBoxItem Content="Ficción"/>
+                                <ComboBoxItem Content="No Ficción"/>
+                                <ComboBoxItem Content="Ciencia"/>
+                                <!-- Agrega más temas según sea necesario -->
+                            </ComboBox>
+                            <TextBlock Text="Autor:" VerticalAlignment="Center" Width="50"/>
+                            <ComboBox Width="139" Margin="5,0,20,0">
+                                <ComboBoxItem Content="Gabriel García Márquez"/>
+                                <ComboBoxItem Content="J.K. Rowling"/>
+                                <!-- Agrega más autores -->
+                            </ComboBox>
+                            <TextBlock Text="Especialidad:" VerticalAlignment="Center" Width="90"/>
+                            <ComboBox Width="130" Margin="5,0,20,0">
+                                <ComboBoxItem Content="Matemáticas"/>
+                                <ComboBoxItem Content="Física"/>
+                                <!-- Agrega más especialidades -->
+                            </ComboBox>
+                            <Button Content="Generar Reporte" Width="141" Height="30" Margin="-9,0,0,0"/>
+                        </StackPanel>
+
+                        <!-- Tabla de resultados de libros -->
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto"/>
+                                <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*"/>
+                                <DataGridTextColumn Header="Tema" Binding="{Binding Tema}" Width="Auto"/>
+                                <DataGridTextColumn Header="Autor" Binding="{Binding Autor}" Width="Auto"/>
+                                <DataGridTextColumn Header="Especialidad" Binding="{Binding Especialidad}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Reporte de Proveedores y Empleados -->
+            <TabItem Header="Proveedores y Empleados">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                        <TextBlock Text="Reporte de Proveedores y Empleados" FontSize="18" FontWeight="Bold"/>
+
+                        <!-- Filtros de Proveedores y Empleados -->
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                            <TextBlock Text="Proveedores:" VerticalAlignment="Center" Width="100"/>
+                            <ComboBox Width="150" Margin="5,0,20,0">
+                                <ComboBoxItem Content="Editorial A"/>
+                                <ComboBoxItem Content="Editorial B"/>
+                                <!-- Agrega más proveedores -->
+                            </ComboBox>
+                            <TextBlock Text="Empleados:" VerticalAlignment="Center" Width="100"/>
+                            <ComboBox Width="150" Margin="5,0,20,0">
+                                <ComboBoxItem Content="Empleado 1"/>
+                                <ComboBoxItem Content="Empleado 2"/>
+                                <!-- Agrega más empleados -->
+                            </ComboBox>
+                            <Button Content="Generar Reporte" Width="138" Height="30"/>
+                        </StackPanel>
+
+                        <!-- Tabla de resultados de proveedores y empleados -->
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto"/>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                                <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="Auto"/>
+                                <!-- Tipo puede ser "Proveedor" o "Empleado" -->
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Análisis de Compras -->
+            <TabItem Header="Compras">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                        <TextBlock Text="Análisis de Compras de Libros/Revistas" FontSize="18" FontWeight="Bold"/>
+
+                        <!-- Filtros para analizar compras -->
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                            <TextBlock Text="Últimos Meses:" VerticalAlignment="Center" Width="100"/>
+                            <ComboBox Width="150" Margin="5,0,20,0">
+                                <ComboBoxItem Content="3 Meses"/>
+                                <ComboBoxItem Content="6 Meses"/>
+                                <ComboBoxItem Content="12 Meses"/>
+                            </ComboBox>
+                            <Button Content="Generar Reporte" Width="141" Height="30"/>
+                        </StackPanel>
+
+                        <!-- Tabla de análisis de compras -->
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto"/>
+                                <DataGridTextColumn Header="Artículo" Binding="{Binding Articulo}" Width="*"/>
+                                <DataGridTextColumn Header="Fecha de Compra" Binding="{Binding FechaCompra}" Width="Auto"/>
+                                <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="Auto"/>
+                                <DataGridTextColumn Header="Precio Total" Binding="{Binding PrecioTotal}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Libros más prestados -->
+            <TabItem Header="Libros más prestados">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                        <TextBlock Text="Libros Más Prestados" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Generar Reporte" Width="142" Height="30" Margin="0,10,0,0"/>
+
+                        <!-- Tabla de libros más prestados -->
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto"/>
+                                <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*"/>
+                                <DataGridTextColumn Header="Cantidad de Préstamos" Binding="{Binding CantidadPrestamos}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Lector y Libro del Mes -->
+            <TabItem Header="Lector y Libro del Mes">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                        <TextBlock Text="Designación del Lector y Libro del Mes" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Generar Designación" Width="168" Height="30" Margin="0,10,0,0"/>
+
+                        <!-- Resultados de la designación -->
+                        <TextBlock Text="Lector del Mes: [Nombre del Lector]" FontSize="16" FontWeight="SemiBold" Margin="0,10,0,0"/>
+                        <TextBlock Text="Libro del Mes: [Título del Libro]" FontSize="16" FontWeight="SemiBold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
