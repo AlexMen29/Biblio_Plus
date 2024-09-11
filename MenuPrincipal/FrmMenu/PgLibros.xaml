@@ -19,7 +19,7 @@
                     <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
+// miau estubo aqui
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="10" Width="120">
