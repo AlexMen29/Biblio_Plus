@@ -1,0 +1,103 @@
+﻿-- Crear la base de datos
+CREATE DATABASE Biblioteca;
+USE Biblioteca;
+
+-- Crear tabla de Editoriales (Proveedores)
+CREATE TABLE Editoriales (
+    EditorialID INT NOT NULL,
+    NombreEditorial VARCHAR(255) NOT NULL,
+    Direccion VARCHAR(255),
+    Telefono VARCHAR(20),
+    Email VARCHAR(100),
+    PRIMARY KEY (EditorialID)
+);
+
+-- Crear tabla de Libros
+CREATE TABLE Libros (
+    LibroID INT NOT NULL,
+    Titulo VARCHAR(255) NOT NULL,
+    Autor VARCHAR(255) NOT NULL,
+    Tema VARCHAR(100),
+    Especialidad VARCHAR(100),
+    EditorialID INT,
+    FechaCompra DATE,
+    PRIMARY KEY (LibroID),
+    FOREIGN KEY (EditorialID) REFERENCES Editoriales(EditorialID) ON DELETE CASCADE
+);
+
+-- Crear tabla de Empleados
+CREATE TABLE Empleados (
+    EmpleadoID INT NOT NULL,
+    NombreEmpleado VARCHAR(255) NOT NULL,
+    Cargo VARCHAR(100),
+    Telefono VARCHAR(20),
+    Email VARCHAR(100),
+    PRIMARY KEY (EmpleadoID)
+);
+
+-- Crear tabla de Usuarios (Lectores)
+CREATE TABLE Usuarios (
+    UsuarioID INT NOT NULL,
+    NombreUsuario VARCHAR(255) NOT NULL,
+    Email VARCHAR(100),
+    Telefono VARCHAR(20),
+    PRIMARY KEY (UsuarioID)
+);
+
+-- Crear tabla de Préstamos
+CREATE TABLE Prestamos (
+    PrestamoID INT NOT NULL,
+    LibroID INT NOT NULL,
+    UsuarioID INT NOT NULL,
+    EmpleadoID INT NOT NULL,
+    FechaPrestamo DATE,
+    FechaDevolucion DATE,
+    TipoPrestamo VARCHAR(10), -- Reemplazado ENUM por VARCHAR
+    PRIMARY KEY (PrestamoID),
+    FOREIGN KEY (LibroID) REFERENCES Libros(LibroID) ON DELETE CASCADE,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID) ON DELETE CASCADE,
+    FOREIGN KEY (EmpleadoID) REFERENCES Empleados(EmpleadoID) ON DELETE CASCADE
+);
+
+-- Crear tabla de Pagos por Préstamos
+CREATE TABLE PagosPrestamos (
+    PagoID INT NOT NULL,
+    PrestamoID INT NOT NULL,
+    Monto DECIMAL(10, 2),
+    PeriodoPago VARCHAR(10), -- Reemplazado ENUM por VARCHAR
+    FechaPago DATE,
+    PRIMARY KEY (PagoID),
+    FOREIGN KEY (PrestamoID) REFERENCES Prestamos(PrestamoID) ON DELETE CASCADE
+);
+
+-- Insertar datos de ejemplo en la tabla de Editoriales (Proveedores)
+INSERT INTO Editoriales (EditorialID, NombreEditorial, Direccion, Telefono, Email) VALUES
+(1, 'Editorial Planeta', 'Av. Siempre Viva 123', '555-1234', 'contacto@editorialplaneta.com'),
+(2, 'Editorial Santillana', 'Calle Falsa 456', '555-5678', 'info@santillana.com'),
+(3, 'Editorial Anaya', 'Plaza Mayor 789', '555-9012', 'soporte@anaya.com');
+
+-- Insertar datos de ejemplo en la tabla de Libros
+INSERT INTO Libros (LibroID, Titulo, Autor, Tema, Especialidad, EditorialID, FechaCompra) VALUES
+(1, 'Cien Años de Soledad', 'Gabriel García Márquez', 'Literatura', 'Novela', 1, '2023-01-15'),
+(2, 'El Quijote', 'Miguel de Cervantes', 'Clásicos', 'Novela', 2, '2022-12-05'),
+(3, 'Aprende Python', 'Guido van Rossum', 'Programación', 'Informática', 3, '2023-05-10');
+
+-- Insertar datos de ejemplo en la tabla de Empleados
+INSERT INTO Empleados (EmpleadoID, NombreEmpleado, Cargo, Telefono, Email) VALUES
+(1, 'Juan Pérez', 'Bibliotecario', '555-1010', 'juan.perez@biblioteca.com'),
+(2, 'María López', 'Asistente', '555-2020', 'maria.lopez@biblioteca.com');
+
+-- Insertar datos de ejemplo en la tabla de Usuarios (Lectores)
+INSERT INTO Usuarios (UsuarioID, NombreUsuario, Email, Telefono) VALUES
+(1, 'Carlos González', 'carlos.gonzalez@example.com', '555-3030'),
+(2, 'Ana Fernández', 'ana.fernandez@example.com', '555-4040');
+
+-- Insertar datos de ejemplo en la tabla de Préstamos
+INSERT INTO Prestamos (PrestamoID, LibroID, UsuarioID, EmpleadoID, FechaPrestamo, FechaDevolucion, TipoPrestamo) VALUES
+(1, 1, 1, 1, '2024-09-01', '2024-09-15', 'Externo'),
+(2, 2, 2, 2, '2024-09-05', '2024-09-10', 'Interno');
+
+-- Insertar datos de ejemplo en la tabla de Pagos por Préstamos
+INSERT INTO PagosPrestamos (PagoID, PrestamoID, Monto, PeriodoPago, FechaPago) VALUES
+(1, 1, 10.00, 'Día', '2024-09-10'),
+(2, 2, 5.00, 'Hora', '2024-09-06');

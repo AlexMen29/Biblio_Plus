@@ -30,15 +30,15 @@
                         <!-- Selección de tipo de préstamo: Interno o Externo -->
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                             <TextBlock Text="Tipo de Préstamo:" VerticalAlignment="Center" Width="150"/>
-                            <ComboBox Width="200" Margin="5,0,20,0">
+                            <ComboBox x:Name="comboBoxTipoPrestamo" Width="200" Margin="5,0,20,0">
                                 <ComboBoxItem Content="Interno"/>
                                 <ComboBoxItem Content="Externo"/>
                             </ComboBox>
-                            <Button Content="Generar Clasificación" Width="150" Height="30"/>
+                            <Button Content="Generar Clasificación" Width="150" Height="30" Click="BtnGenerarClasificacion_Click"/>
                         </StackPanel>
 
                         <!-- Tabla de clasificación de préstamos -->
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                        <DataGrid x:Name="dataGridPrestamos" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID Préstamo" Binding="{Binding ID}" Width="Auto"/>
                                 <DataGridTextColumn Header="Libro" Binding="{Binding Titulo}" Width="*"/>
@@ -60,19 +60,19 @@
                         <!-- Selección de período para el cálculo de pagos -->
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                             <TextBlock Text="Pago por:" VerticalAlignment="Center" Width="100"/>
-                            <ComboBox Width="150" Margin="5,0,20,0">
+                            <ComboBox x:Name="comboBoxPeriodoPago" Width="150" Margin="5,0,20,0">
                                 <ComboBoxItem Content="Hora"/>
                                 <ComboBoxItem Content="Día"/>
                                 <ComboBoxItem Content="Semana"/>
                                 <ComboBoxItem Content="Mes"/>
                             </ComboBox>
                             <TextBlock Text="Monto:" VerticalAlignment="Center" Width="50"/>
-                            <TextBox Width="100" Margin="5,0,20,0" />
-                            <Button Content="Calcular Pago" Width="120" Height="30"/>
+                            <TextBox x:Name="textBoxMonto" Width="100" Margin="5,0,20,0" />
+                            <Button Content="Calcular Pago" Width="120" Height="30" Click="BtnCalcularPago_Click"/>
                         </StackPanel>
 
                         <!-- Tabla de control de pagos -->
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+                        <DataGrid x:Name="dataGridPagos" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID Préstamo" Binding="{Binding ID}" Width="Auto"/>
                                 <DataGridTextColumn Header="Libro" Binding="{Binding Titulo}" Width="*"/>
