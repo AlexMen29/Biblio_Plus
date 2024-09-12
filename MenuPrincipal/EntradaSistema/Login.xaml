@@ -44,7 +44,8 @@
         </Grid>
         <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,85" Click="Button_Click"/>
         <TextBlock Text="¿Olvidó su contraseña?" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30" Foreground="Gray" Cursor="Hand"/>
-        <Image Height="100" Margin="20,20,20,20" VerticalAlignment="Top" Width="100" Source="/Assets/home.png"/>
+        <Image Height="100" Margin="20,20,20,20" VerticalAlignment="Top" Width="100" Source="/Assets/book.png"/>
+        
     </Grid>
 </Window>
     

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\book.png" />
     <None Remove="Assets\logo itca.png" />
   </ItemGroup>
 
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\book.png" />
     <Resource Include="Assets\logo itca.png" />
   </ItemGroup>
 

@@ -13,6 +13,7 @@ using System.Data;
 using MenuPrincipal.PageReport;
 using Microsoft.Data.SqlClient;
 using MenuPrincipal.FrmMenu;
+using MenuPrincipal.PagePrestamos;
 
 namespace MenuPrincipal
 {
@@ -78,6 +79,13 @@ namespace MenuPrincipal
             Report page2 = new Report();
             frContenido.NavigationService.Navigate(page2);
             ImgLogo.Visibility=Visibility.Hidden;
+        }
+
+        private void btnPrestamo_Click(object sender, RoutedEventArgs e)
+        {
+            Prestamos page3 = new Prestamos();
+            frContenido.NavigationService.Navigate(page3);
+            ImgLogo.Visibility = Visibility.Hidden;
         }
     }
 }
