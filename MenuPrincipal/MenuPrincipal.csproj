@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Assets\book.png" />
     <None Remove="Assets\logo itca.png" />
+    <None Remove="Assets\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
   <ItemGroup>
     <Resource Include="Assets\book.png" />
     <Resource Include="Assets\logo itca.png" />
+    <Resource Include="Assets\logo.png" />
   </ItemGroup>
 
   <ItemGroup>

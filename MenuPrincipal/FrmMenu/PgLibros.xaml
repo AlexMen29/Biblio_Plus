@@ -10,6 +10,7 @@
     <!-- Agrega un ScrollViewer para la sección de títulos -->
     <ScrollViewer Grid.Column="1"
               Margin="20,60,20,20"
+                  
               VerticalScrollBarVisibility="Auto"
               HorizontalAlignment="Center">
 
