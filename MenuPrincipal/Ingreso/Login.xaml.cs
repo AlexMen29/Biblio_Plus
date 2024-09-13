@@ -1,4 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,38 +11,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-//SQL
 
 using System.Data;
 using System.Data.SqlClient;
 
 
-namespace Login
+namespace MenuPrincipal.Ingreso
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para Login.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Login : Window
     {
-        public MainWindow()
+        public Login()
         {
             InitializeComponent();
         }
 
+    
+
         #region DECLARACION DE VARIABLES LOCALES
         //Conexion a la DB
         SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB);
-      
-
-       
-
 
         //variables para SQL Querys
         string consultaSQL = null;
-
 
         #endregion
 
@@ -71,10 +70,10 @@ namespace Login
 
                 if (resultado == 1)
                 {
-                    //Instanciar formulario de usuario
-                    //frmUsuarios frmUsu = new frmUsuarios();
-                    //frmUsu.Show();
-                    //this.Close();
+
+                    MainWindow ventanaPrincipal = new MainWindow();
+                    ventanaPrincipal.Show();
+                    this.Close();
 
                 }
                 else
@@ -88,14 +87,21 @@ namespace Login
             }
         }
 
+        #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
             EncontrarUsuario();
         }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                EncontrarUsuario();
+            }
+        }
+
     }
-    #endregion
-
-
 
 }

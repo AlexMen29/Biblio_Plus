@@ -1,12 +1,12 @@
-﻿<Window x:Class="Login.MainWindow"
+﻿<Window x:Class="MenuPrincipal.Ingreso.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:Login"
+        xmlns:local="clr-namespace:MenuPrincipal.Ingreso"
         mc:Ignorable="d"
-        Title="Identificación de Usuario" Height="500" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+            Title="Identificación de Usuario" Height="500" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Rectangle Height="280" VerticalAlignment="Top">
             <Rectangle.Fill>
@@ -27,25 +27,24 @@
             <Label Content="LOGIN" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="Gray" FontSize="18"/>
             <StackPanel VerticalAlignment="Center" Margin="15">
                 <TextBox x:Name="txtCorreo"
-                    Margin="0,10"
-                    FontSize="18"
-                    FontFamily="Corbel Light"
-                    materialDesign:HintAssist.Hint="Correo"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    />
+                Margin="0,10"
+                FontSize="18"
+                FontFamily="Corbel Light"
+                materialDesign:HintAssist.Hint="Correo"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                />
                 <PasswordBox x:Name="txtPassword"
-                    Margin="0,10"
-                    FontSize="18"
-                    FontFamily="Corbel Light"
-                    materialDesign:HintAssist.Hint="Contraseña"
-                    Style="{StaticResource MaterialDesignFilledPasswordBox }" Cursor="IBeam"
-                    />
+                Margin="0,10"
+                FontSize="18"
+                FontFamily="Corbel Light"
+                materialDesign:HintAssist.Hint="Contraseña"
+                Style="{StaticResource MaterialDesignFilledPasswordBox }" Cursor="IBeam" KeyDown="txtPassword_KeyDown"
+                />
             </StackPanel>
         </Grid>
-        <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,85" Click="Button_Click"/>
+        <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,85" Click="BtnIngresar_Click"/>
         <TextBlock Text="¿Olvidó su contraseña?" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30" Foreground="Gray" Cursor="Hand"/>
         <Image Height="100" Margin="20,20,20,20" VerticalAlignment="Top" Width="100" Source="/Assets/book.png"/>
-        
+
     </Grid>
 </Window>
-    

@@ -10,7 +10,6 @@
     <!-- Agrega un ScrollViewer para la sección de títulos -->
     <ScrollViewer Grid.Column="1"
               Margin="20,60,20,20"
-                  
               VerticalScrollBarVisibility="Auto"
               HorizontalAlignment="Center">
 
@@ -20,7 +19,7 @@
                     <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-// miau estubo aqui
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="10" Width="120">
