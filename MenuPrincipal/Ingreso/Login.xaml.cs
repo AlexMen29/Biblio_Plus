@@ -43,6 +43,8 @@ namespace MenuPrincipal.Ingreso
         #region METODOS PERSONALIZADOS
         void EncontrarUsuario()
         {
+            //Nos aseguramos que el txtContraseña tenga asignado el valor correspondiente
+            txtPassword.Password=txtMostrarContraseña.Text;
 
             int resultado = 0;
 
@@ -100,8 +102,25 @@ namespace MenuPrincipal.Ingreso
             {
                 EncontrarUsuario();
             }
+           
         }
 
+        private void Mostrar(object sender, RoutedEventArgs e)
+        {
+            
+            txtMostrarContraseña.Text=txtPassword.Password;
+            txtPassword.Visibility = Visibility.Collapsed;
+            txtMostrarContraseña.Visibility = Visibility.Visible;
+
+        }
+
+        private void Ocultar(object sender, RoutedEventArgs e)
+        {
+            txtPassword.Password = txtMostrarContraseña.Text;
+            txtPassword.Visibility = Visibility.Visible;
+            txtMostrarContraseña.Visibility=Visibility.Collapsed;
+
+        }
     }
 
 }

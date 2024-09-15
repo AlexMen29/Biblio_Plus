@@ -40,6 +40,19 @@
                 materialDesign:HintAssist.Hint="Contraseña"
                 Style="{StaticResource MaterialDesignFilledPasswordBox }" Cursor="IBeam" KeyDown="txtPassword_KeyDown"
                 />
+
+                <TextBox x:Name="txtMostrarContraseña"
+                         Margin="0,10"
+                         FontSize="18"
+                         FontFamily="Corbel Light" 
+                         materialDesign:HintAssist.Hint="Contraseña"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Visibility="Collapsed" Cursor="IBeam"                
+                    />
+                <CheckBox Content="Mostrar contraseña" 
+                          Checked="Mostrar"
+                          Unchecked="Ocultar"  Foreground="#FF877B7B" Background="#FF3F474D"  
+                    />
             </StackPanel>
         </Grid>
         <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,85" Click="BtnIngresar_Click"/>
