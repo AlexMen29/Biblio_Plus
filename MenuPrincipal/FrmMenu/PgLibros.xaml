@@ -7,59 +7,74 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PgLibros" Background="White">
-    <!-- Agrega un ScrollViewer para la sección de títulos -->
-    <ScrollViewer Grid.Column="1"
-              Margin="20,60,20,20"
-              VerticalScrollBarVisibility="Auto"
-              HorizontalAlignment="Center">
 
-        <ItemsControl x:Name="contentGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+    <!-- Contenedor principal -->
+    <Grid>
+        <!-- Primera fila para la imagen y slider -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="10" Width="120">
-                        <!-- Imagen con efecto hover usando transformaciones -->
-                        <Border Width="120" Height="180">
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
-                            </Border.Effect>
-                            <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
-                                <Image.RenderTransform>
-                                    <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                                </Image.RenderTransform>
-                                <Image.Triggers>
-                                    <!-- Trigger para cuando el cursor esté sobre la imagen -->
-                                    <EventTrigger RoutedEvent="MouseEnter">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.2"/>
-                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                    <EventTrigger RoutedEvent="MouseLeave">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.2"/>
-                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Image.Triggers>
-                            </Image>
-                        </Border>
-                        <!-- Nombre -->
-                        <TextBlock Text="{Binding nombre}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
-                        <!-- Tipo -->
-                        <TextBlock Text="{Binding tipo}" Foreground="Black" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+        <!-- Imagen que se mostrará y Slider en la primera fila -->
+        <Grid>
+            <Image x:Name="ImageDisplay" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Slider x:Name="ImageSlider" 
+                    Minimum="0" 
+                    Maximum="2" 
+                    TickFrequency="1" 
+                    IsSnapToTickEnabled="True" 
+                    VerticalAlignment="Top" 
+                    Margin="10,261,10,0" 
+                    ValueChanged="ImageSlider_ValueChanged" Height="98"/>
+        </Grid>
+
+        <!-- Segunda fila para el ScrollViewer -->
+        <ScrollViewer Grid.Row="1" Margin="20,60,20,20" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
+            <ItemsControl x:Name="contentGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10" Width="120">
+                            <Border Width="120" Height="180">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
+                                </Border.Effect>
+                                <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
+                                    <Image.RenderTransform>
+                                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                                    </Image.RenderTransform>
+                                    <Image.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.2"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.2"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Border>
+                            <TextBlock Text="{Binding nombre}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
+                            <TextBlock Text="{Binding tipo}" Foreground="Black" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </Page>
