@@ -14,6 +14,8 @@ using MenuPrincipal.PageReport;
 using Microsoft.Data.SqlClient;
 using MenuPrincipal.FrmMenu;
 using MenuPrincipal.PagePrestamos;
+using MenuPrincipal.PageUsuarios;
+
 
 namespace MenuPrincipal
 {
@@ -85,6 +87,13 @@ namespace MenuPrincipal
         {
             Prestamos page3 = new Prestamos();
             frContenido.NavigationService.Navigate(page3);
+            ImgLogo.Visibility = Visibility.Hidden;
+        }
+
+        private void btnUsuarios_Click(object sender, RoutedEventArgs e)
+        {
+            Usuarios Page4 = new Usuarios();    
+            frContenido .NavigationService.Navigate(Page4);
             ImgLogo.Visibility = Visibility.Hidden;
         }
     }
