@@ -31,7 +31,6 @@ namespace MenuPrincipal.FrmMenu
             //ConfigurarSlider();
         }
 
-
         SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB);
 
 
