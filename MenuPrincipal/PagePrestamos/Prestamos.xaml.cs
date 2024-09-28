@@ -9,9 +9,7 @@ namespace MenuPrincipal.PagePrestamos
 {
     public partial class Prestamos : Page
     {
-        // Cadena de conexión a la base de datos
-        private string connectionString = "Server=DESKTOP-HO4DRLK\\SQLEXPRESS;Initial Catalog=Biblioteca;Integrated Security=True;Encrypt=False;";
-        //Data Source=DESKTOP-HO4DRLK\SQLEXPRESS;Initial Catalog=Biblioteca;Integrated Security=True;Encrypt=False
+        // Constructor
         public Prestamos()
         {
             InitializeComponent();
@@ -22,15 +20,15 @@ namespace MenuPrincipal.PagePrestamos
         // Método para cargar la clasificación de préstamos en el DataGrid
         private void CargarClasificacionPrestamos()
         {
-            string query = "SELECT p.PrestamoID AS ID, l.Titulo, p.TipoPrestamo, p.FechaPrestamo, p.FechaDevolucion " +
-                           "FROM Prestamos p " +
-                           "INNER JOIN Libros l ON p.LibroID = l.LibroID";
+            string consultaSQL = "SELECT p.PrestamoID AS ID, l.Titulo, p.TipoPrestamo, p.FechaPrestamo, p.FechaDevolucion " +
+                                 "FROM Prestamos p " +
+                                 "INNER JOIN Libros l ON p.LibroID = l.LibroID";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB))
             {
                 try
                 {
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter(consultaSQL, conDB);
                     DataTable prestamosTable = new DataTable();
                     adapter.Fill(prestamosTable);
                     dataGridPrestamos.ItemsSource = prestamosTable.DefaultView;
@@ -42,20 +40,19 @@ namespace MenuPrincipal.PagePrestamos
             }
         }
 
-
         // Método para cargar el control de pagos en el DataGrid
         private void CargarControlPagos()
         {
-            string query = "SELECT pp.PrestamoID AS ID, l.Titulo, pr.TipoPrestamo, pp.PeriodoPago AS Periodo, pp.Monto " +
-                           "FROM PagosPrestamos pp " +
-                           "INNER JOIN Prestamos pr ON pp.PrestamoID = pr.PrestamoID " +
-                           "INNER JOIN Libros l ON pr.LibroID = l.LibroID";
+            string consultaSQL = "SELECT pp.PrestamoID AS ID, l.Titulo, pr.TipoPrestamo, pp.PeriodoPago AS Periodo, pp.Monto " +
+                                 "FROM PagosPrestamos pp " +
+                                 "INNER JOIN Prestamos pr ON pp.PrestamoID = pr.PrestamoID " +
+                                 "INNER JOIN Libros l ON pr.LibroID = l.LibroID";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB))
             {
                 try
                 {
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter(consultaSQL, conDB);
                     DataTable pagosTable = new DataTable();
                     adapter.Fill(pagosTable);
                     dataGridPagos.ItemsSource = pagosTable.DefaultView;
@@ -67,21 +64,20 @@ namespace MenuPrincipal.PagePrestamos
             }
         }
 
-
         // Evento del botón para generar la clasificación de préstamos
         private void BtnGenerarClasificacion_Click(object sender, RoutedEventArgs e)
         {
             string tipoPrestamo = ((ComboBoxItem)comboBoxTipoPrestamo.SelectedItem).Content.ToString();
-            string query = $"SELECT p.PrestamoID AS ID, l.Titulo, p.TipoPrestamo, p.FechaPrestamo, p.FechaDevolucion " +
-                           $"FROM Prestamos p " +
-                           $"INNER JOIN Libros l ON p.LibroID = l.LibroID " +
-                           $"WHERE p.TipoPrestamo = '{tipoPrestamo}'";
+            string consultaSQL = $"SELECT p.PrestamoID AS ID, l.Titulo, p.TipoPrestamo, p.FechaPrestamo, p.FechaDevolucion " +
+                                 $"FROM Prestamos p " +
+                                 $"INNER JOIN Libros l ON p.LibroID = l.LibroID " +
+                                 $"WHERE p.TipoPrestamo = '{tipoPrestamo}'";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB))
             {
                 try
                 {
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter(consultaSQL, conDB);
                     DataTable prestamosTable = new DataTable();
                     adapter.Fill(prestamosTable);
                     dataGridPrestamos.ItemsSource = prestamosTable.DefaultView;
@@ -104,4 +100,5 @@ namespace MenuPrincipal.PagePrestamos
             MessageBox.Show($"Pago calculado para el período: {periodoPago}, con un monto de {monto}");
         }
     }
+
 }
