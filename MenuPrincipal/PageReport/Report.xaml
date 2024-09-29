@@ -28,27 +28,25 @@
 
                         <!-- Filtros de Libros: Clasificación por Tema, Autor, Especialidad -->
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-                            <TextBlock Text="Tema:" VerticalAlignment="Center" Width="50"/>
-                            <ComboBox x:Name="comboBoxTema" Width="140" Margin="5,0,20,0">
-                                <ComboBoxItem Content="Ficción"/>
-                                <ComboBoxItem Content="No Ficción"/>
-                                <ComboBoxItem Content="Ciencia"/>
+                            <TextBlock Text="Tema:" VerticalAlignment="Center" Width="32"/>
+                            <ComboBox x:Name="comboBoxTema" Width="140" Margin="5,0,5,0" SelectionChanged="ComboBox_SelectionChanged">
+                               
                                 <!-- Agrega más temas según sea necesario -->
                             </ComboBox>
-                            <TextBlock Text="Autor:" VerticalAlignment="Center" Width="50"/>
-                            <ComboBox x:Name="comboBoxAutor" Width="139" Margin="5,0,20,0">
-                                <ComboBoxItem Content="Gabriel García Márquez"/>
-                                <ComboBoxItem Content="J.K. Rowling"/>
+                            <TextBlock Text="Autor:" VerticalAlignment="Center" Width="36"/>
+                            <ComboBox x:Name="comboBoxAutor" Width="132" Margin="5,0,5,0" SelectionChanged="ComboBox_SelectionChanged">
+                               
                                 <!-- Agrega más autores -->
                             </ComboBox>
-                            <TextBlock Text="Especialidad:" VerticalAlignment="Center" Width="90"/>
-                            <ComboBox x:Name="comboBoxEspecialidad" Width="130" Margin="5,0,20,0">
-                                <ComboBoxItem Content="Matemáticas"/>
-                                <ComboBoxItem Content="Física"/>
+                            <TextBlock Text="Especialidad:" VerticalAlignment="Center" Width="69"/>
+                            <ComboBox x:Name="comboBoxEspecialidad" Width="130" Margin="5,0,16,0" SelectionChanged="ComboBox_SelectionChanged">
+                              
                                 <!-- Agrega más especialidades -->
                             </ComboBox>
                             <Button Content="Generar Reporte" Width="141" Height="30" Margin="-9,0,0,0"
-                                    Click="GenerarReporteLibros"/>
+                                    Click="GenerarReporteLibros"></Button>
+                            <Button Name="btnLimpiar" Content="Limpiar Filtros" Click="btnLimpiar_Click" Width="100" Height="30" Margin="10"/>
+
                         </StackPanel>
 
                         <!-- Tabla de resultados de libros -->
@@ -75,14 +73,12 @@
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                             <TextBlock Text="Proveedores:" VerticalAlignment="Center" Width="100"/>
                             <ComboBox x:Name="comboBoxProveedores" Width="150" Margin="5,0,20,0">
-                                <ComboBoxItem Content="Editorial A"/>
-                                <ComboBoxItem Content="Editorial B"/>
+                               
                                 <!-- Agrega más proveedores -->
                             </ComboBox>
                             <TextBlock Text="Empleados:" VerticalAlignment="Center" Width="100"/>
                             <ComboBox x:Name="comboBoxEmpleados" Width="150" Margin="5,0,20,0">
-                                <ComboBoxItem Content="Empleado 1"/>
-                                <ComboBoxItem Content="Empleado 2"/>
+                               
                                 <!-- Agrega más empleados -->
                             </ComboBox>
                             <Button Content="Generar Reporte" Width="138" Height="30"
@@ -112,9 +108,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                             <TextBlock Text="Últimos Meses:" VerticalAlignment="Center" Width="100"/>
                             <ComboBox x:Name="comboBoxPeriodoCompras" Width="150" Margin="5,0,20,0">
-                                <ComboBoxItem Content="3 Meses"/>
-                                <ComboBoxItem Content="6 Meses"/>
-                                <ComboBoxItem Content="12 Meses"/>
+                               
                             </ComboBox>
                             <Button Content="Generar Reporte" Width="141" Height="30"
                                     Click="GenerarReporteCompras"/>
