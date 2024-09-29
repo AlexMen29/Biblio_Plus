@@ -40,9 +40,9 @@
                                     </Image>
                                 </Border>
                                 <!-- Nombre -->
-                                <TextBlock Text="{Binding nombre}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
+                                <TextBlock Text="{Binding Titulo}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
                                 <!-- Tipo -->
-                                <TextBlock Text="{Binding tipo}" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Autor}" Foreground="Black" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

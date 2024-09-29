@@ -37,8 +37,8 @@ namespace MenuPrincipal.FrmMenu
         //Funcion creada para llamar solo una vez para cargar todos los elementos
         private void CargarTodosLosElementos()
         {
-            CargarElementosPorGenero("SELECT TOP 3* FROM prueba ORDER BY id DESC;", contentGrid);
-            CargarElementosPorGenero("SELECT *FROM prueba WHERE genero='Drama'",contenGridDrama);
+            CargarElementosPorGenero("SELECT TOP 3* FROM LIBROS ORDER BY LibroID DESC", contentGrid);
+            CargarElementosPorGenero("SELECT *FROM LIBROS WHERE EditorialID=2", contenGridDrama);
         }
 
         //funcion que carga elementos segun genero
