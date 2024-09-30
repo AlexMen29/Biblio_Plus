@@ -21,7 +21,6 @@ namespace MenuPrincipal.PageUsuarios
     /// </summary>
     public partial class Usuarios : Page
     {
-        private string connectionString = "Data Source=LAPTOP-1QS2UH3M\\SQLEXPRESS;Initial Catalog=Prueba;Integrated Security=True";
         public Usuarios()
         {
             InitializeComponent();
@@ -36,7 +35,7 @@ namespace MenuPrincipal.PageUsuarios
         {
             //consulta sql 
             consultaSQL = null;
-            consultaSQL = "SELECT Carnet,NombreCompleto,Carrera,Correo,Telefono FROM USUARIOS";
+            consultaSQL = "SELECT Carnet,NombreCompleto,Carrera,Correo,Telefono,FechaRegistro FROM USUARIOS";
             condb.Open();
             //creando elemento sqladapter
             SqlDataAdapter da = new SqlDataAdapter(consultaSQL, condb);
@@ -55,10 +54,10 @@ namespace MenuPrincipal.PageUsuarios
         {
             string carnet = txtCarnet.Text;
             string nombreCompleto = txtNombre.Text;
-            string carrera = txtCarrera.Text;
+            string carrera = txbCarrera.Text;
             string correo = txtCorreo.Text;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.conexionDB))
             {
                 try
                 {
