@@ -44,7 +44,15 @@ namespace MenuPrincipal.Ingreso
         void EncontrarUsuario()
         {
             //Nos aseguramos que el txtContraseña tenga asignado el valor correspondiente
-            txtPassword.Password=txtMostrarContraseña.Text;
+            if (txtPassword.Visibility == Visibility.Visible)
+            {
+                txtPassword.Password =txtPassword.Password.Trim();
+            }
+            else
+            {
+                txtPassword.Password = txtMostrarContraseña.Text;
+            }
+            
 
             int resultado = 0;
 
