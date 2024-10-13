@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using System.Data;
 using System.Data.SqlClient;
+using MenuPrincipal.BD.Services;
 
 
 namespace MenuPrincipal.Ingreso
@@ -46,55 +47,27 @@ namespace MenuPrincipal.Ingreso
             //Nos aseguramos que el txtContraseña tenga asignado el valor correspondiente
             if (txtPassword.Visibility == Visibility.Visible)
             {
-                txtPassword.Password =txtPassword.Password.Trim();
+                txtPassword.Password = txtPassword.Password.Trim();
             }
             else
             {
-                txtPassword.Password = txtMostrarContraseña.Text;
+                txtPassword.Password = txtCorreo.Text;
             }
-            
 
-            int resultado = 0;
 
-            //aperturarBD
-            if (conDB.State == ConnectionState.Closed)
+            if (MetodosCredenciales.EncontrarUsuario(txtCorreo,txtPassword) > 0)
             {
-                conDB.Open();
-                //Cosnulta para buscar usuario
-                consultaSQL = null;
 
-                consultaSQL = "SELECT DBO.FNENCONTRARUSUARIO(@User,@Password)";
-
-                SqlCommand sqlCmd = new SqlCommand(consultaSQL, conDB);
-                sqlCmd.CommandType = CommandType.Text;
-                //enviar valores por paramtetros
-                sqlCmd.Parameters.AddWithValue("@User", txtCorreo.Text.Trim());
-                sqlCmd.Parameters.AddWithValue("@Password", txtPassword.Password.Trim());
-
-                //ejecutar la consulta sql
-                resultado = Convert.ToInt32(sqlCmd.ExecuteScalar());
-
-                MessageBox.Show(resultado.ToString());
-
-                //evaluar el resultado
-
-                if (resultado == 1)
-                {
-
-                    MainWindow ventanaPrincipal = new MainWindow();
-                    ventanaPrincipal.Show();
-                    this.Close();
-
-                }
-                else
-                {
-                    MessageBox.Show("Usuario no encontrado", "error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                //cerrar la base de datos
-                conDB.Close();
+                MainWindow ventanaPrincipal = new MainWindow();
+                ventanaPrincipal.Show();
+                this.Close();
 
             }
+            else
+            {
+                MessageBox.Show("Usuario no encontrado", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         #endregion

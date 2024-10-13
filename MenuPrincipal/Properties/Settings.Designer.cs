@@ -26,8 +26,8 @@ namespace MenuPrincipal.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-03IRMT5\\SQLEXPRESS;Initial Catalog=BiblioPlus;Integrated Secu" +
-            "rity=True;Encrypt=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-03IRMT5\\SQLEXPRESS;Initial Catalog=BibliotecaDBX;Integrated S" +
+            "ecurity=True;Encrypt=False")]
         public string conexionDB {
             get {
                 return ((string)(this["conexionDB"]));
