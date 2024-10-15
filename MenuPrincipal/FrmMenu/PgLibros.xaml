@@ -124,7 +124,11 @@
                         <!-- Filtro por Especialidad -->
                         <StackPanel Margin="10,0">
                             <TextBlock Text="Filtrar por Edicion" FontWeight="Bold" />
-                            <ComboBox x:Name="EdicionComboBox" Width="150" SelectionChanged="EdicionComboBox_SelectionChanged" />
+                            <ComboBox x:Name="StockComboBox" Width="150" SelectionChanged="StockComboBox_SelectionChanged" >
+                                <ComboBoxItem Content="Mayor a Menor"/>
+                                <ComboBoxItem Content="Menor a Mayor"/>
+                                <ComboBoxItem Content="Ninguno"/>
+                            </ComboBox>
                         </StackPanel>
 
                         <!-- Botón Filtrar -->

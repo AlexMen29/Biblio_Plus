@@ -33,10 +33,9 @@ namespace MenuPrincipal.FrmMenu
             CargarDatos();
 
 
-            LlenarBoxFiltros("SELECT DISTINCT A.NombreAutor FROM Libros L JOIN Autores A ON L.AutorID = A.AutorID", AutorComboBox,"NombreAutor");
-            LlenarBoxFiltros("SELECT DISTINCT A.NombreEditorial FROM Libros L JOIN Editoriales A ON L.EdicionID = A.EditorialID",EditorialComboBox, "NombreEditorial");
-            LlenarBoxFiltros("SELECT DISTINCT A.NombreCategoria FROM Libros L JOIN Categorias A ON L.CategoriaID = A.CategoriaID", CategoriaComboBox,"NombreCategoria");
-            LlenarBoxFiltros("SELECT DISTINCT A.ISBN FROM Libros L JOIN Ediciones A ON L.EdicionID = A.EdicionID",EdicionComboBox,"ISBN");
+            LlenarBoxFiltros("SELECT DISTINCT A.NombreAutor FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Autores A ON DL.AutorID = A.AutorID", AutorComboBox,"NombreAutor");
+            LlenarBoxFiltros("SELECT DISTINCT E.NombreEditorial FROM Libros L  JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Editoriales E ON DL.EditorialID = E.EditorialID", EditorialComboBox, "NombreEditorial");
+            LlenarBoxFiltros("SELECT DISTINCT C.NombreCategoria  FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Categorias C ON DL.CategoriaID = C.CategoriaID", CategoriaComboBox,"NombreCategoria");
         }
 
         public List<DetallesLibros> ListaDataGrid;
@@ -145,34 +144,6 @@ namespace MenuPrincipal.FrmMenu
         }
 
 
-
-
-        //public void AplicarFiltro(string seleccion, string propiedad, DataGrid dataGrid)
-        //{
-        //    if (!string.IsNullOrEmpty(seleccion) && seleccion != "Ninguno")
-        //    {
-        //        // Filtramos la lista de libros según la propiedad (Autor, Editorial, etc.)
-        //        List<DetallesLibros> librosFiltrados = ListaDataGrid //MetodosDetallesLibros.MostrarLibros()
-        //            .Where(libro =>
-        //            {
-        //                // Obtenemos el valor de la propiedad dinámica (Autor, Editorial, etc.)
-        //                var valorPropiedad = typeof(DetallesLibros).GetProperty(propiedad).GetValue(libro).ToString();
-        //                return valorPropiedad.Equals(seleccion, StringComparison.OrdinalIgnoreCase);
-        //            })
-        //            .ToList();
-
-        //        // Asignamos los libros filtrados al DataGrid
-        //        dataGrid.ItemsSource = librosFiltrados;
-        //        ListaDataGrid = librosFiltrados;
-
-        //    }
-        //    else
-        //    {
-        //        // Si no hay selección, cargamos todos los datos
-        //        CargarDatos();
-        //    }
-        //}
-
         public void AplicarFiltro()
         {
             // Obtenemos la lista completa de libros
@@ -205,14 +176,26 @@ namespace MenuPrincipal.FrmMenu
                     .ToList();
             }
 
-            // Filtramos por edición si hay un valor seleccionado
-            if (EdicionComboBox.SelectedItem != null && EdicionComboBox.SelectedItem.ToString() != "Ninguno")
+            if (StockComboBox.SelectedItem != null && ((ComboBoxItem)StockComboBox.SelectedItem).Content.ToString() != "Ninguno")
             {
-                string edicionSeleccionada = EdicionComboBox.SelectedItem.ToString();
-                librosFiltrados = librosFiltrados
-                    .Where(libro => libro.Edicion.Equals(edicionSeleccionada, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+           
+
+                string stockSeleccionado = ((ComboBoxItem)StockComboBox.SelectedItem).Content.ToString();
+
+                if (stockSeleccionado == "Mayor a Menor")
+                {
+                    librosFiltrados = librosFiltrados
+                        .OrderByDescending(libro => libro.StockActual) // Ordenar de mayor a menor
+                        .ToList();
+                }
+                else if (stockSeleccionado == "Menor a Mayor")
+                {
+                    librosFiltrados = librosFiltrados
+                        .OrderBy(libro => libro.StockActual) // Ordenar de menor a mayor
+                        .ToList();
+                }
             }
+
 
             // Asignamos los libros filtrados al DataGrid
             LibrosDataGrid.ItemsSource = librosFiltrados;
@@ -238,10 +221,12 @@ namespace MenuPrincipal.FrmMenu
             AplicarFiltro();
         }
 
-        private void EdicionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void StockComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           
             AplicarFiltro();
         }
+
 
 
         #endregion
@@ -255,8 +240,9 @@ namespace MenuPrincipal.FrmMenu
             AutorComboBox.SelectedIndex = -1;
             EditorialComboBox.SelectedIndex = -1;
             CategoriaComboBox.SelectedIndex = -1;
-            EdicionComboBox.SelectedIndex = -1;
+            StockComboBox.SelectedIndex = -1;
         }
+
     }
 
 
