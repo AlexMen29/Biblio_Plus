@@ -1,4 +1,5 @@
-﻿using MenuPrincipal.BD.Models;
+﻿using MenuPrincipal.ActualizacionesDatos;
+using MenuPrincipal.BD.Models;
 using MenuPrincipal.BD.Services;
 using Microsoft.Data.SqlClient;
 using System;
@@ -39,6 +40,7 @@ namespace MenuPrincipal.FrmMenu
         }
 
         public List<DetallesLibros> ListaDataGrid;
+        DetallesLibros Libros;
 
         SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB);
 
@@ -243,6 +245,31 @@ namespace MenuPrincipal.FrmMenu
             StockComboBox.SelectedIndex = -1;
         }
 
+        private void LibrosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            labSeleccion.Content=null;
+            Libros = (DetallesLibros)LibrosDataGrid.SelectedItem;
+
+            if (Libros == null)
+            {
+                return;
+            }
+
+            labSeleccion.Content += $"Elemento Seleccionado: {Libros.Titulo}";
+
+
+
+
+
+        }
+
+     
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ActualizacionLibros VentanaActualizacion = new ActualizacionLibros(Libros);
+            VentanaActualizacion.ShowDialog();
+        }
     }
 
 
