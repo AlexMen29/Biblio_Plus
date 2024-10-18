@@ -3,32 +3,97 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         xmlns:local="clr-namespace:MenuPrincipal.ActualizacionesDatos"
         mc:Ignorable="d"
-        Title="ActualizacionLibros" Height="450" Width="800">
+        Title="ActualizacionLibros" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+
     <Grid>
         <!-- Fondo con gradiente -->
-       
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#9e1717" Offset="0.272"/>
+                <GradientStop Color="#cd9112" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-        <!-- Panel de Edición -->
-        <StackPanel Background="Transparent" x:Name="EditPanel" Margin="0,20,0,0">
-            <TextBlock Text="Editar Libro" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="5"/>
+        <!-- Rectángulo detrás del contenido -->
+        <Rectangle Margin="20,20,20,20" RadiusX="10" RadiusY="10" Fill="White">
+            <Rectangle.Effect>
+                <DropShadowEffect/>
+            </Rectangle.Effect>
+        </Rectangle>
 
-            <TextBox x:Name="EditTituloTextBox" Margin="5" Foreground="Black" />
-            <TextBox x:Name="EditAutorTextBox" Margin="5" Foreground="Black" />
-            <TextBox x:Name="EditEditorialTextBox" Margin="5" Foreground="Black" />
-            <TextBox x:Name="EditCategoriaTextBox" Margin="5" Foreground="Black" />
-            <TextBox x:Name="EditEdicionTextBox" Margin="5" Foreground="Black" />
-            <TextBox x:Name="EditStockTextBox" Margin="5" Foreground="Black" />
+        <!-- Contenedor principal con dos columnas para organizar los elementos -->
+        <Grid Margin="20,20,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <!-- Columna más ancha para los datos -->
+                <ColumnDefinition Width="1*" />
+                <!-- Columna más angosta para la imagen -->
+            </Grid.ColumnDefinitions>
 
-            <Button Content="Guardar Cambios" Width="120" Margin="5" Background="#9e1717" Foreground="White" />
-        </StackPanel>
+            <!-- Panel de Edición (Datos del libro) -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Margin="20,20,57,0">
+                <StackPanel Background="Transparent" x:Name="EditPanel">
 
-        <!-- Botones de acciones -->
+                    <!-- Título -->
+                    <Label Content="Editar Libro" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="5" />
+
+                    <!-- Campos de texto -->
+                    <TextBox x:Name="EditTituloTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Titulo"/>
+                    <TextBox x:Name="EditDescripcionTextBox" Margin="5" Foreground="Black"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 materialDesign:HintAssist.Hint="Descripción" AcceptsReturn="True" Height="100" />  
+                    <TextBox x:Name="EditAutorTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Autor"/>
+                    <TextBox x:Name="EditEditorialTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Editorial"/>
+                    <TextBox x:Name="EditCategoriaTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Categoría"/>
+                    <TextBox x:Name="EditEdicionTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Edición"/>
+                    <TextBox x:Name="EditStockTextBox" Margin="5" Foreground="Black" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 materialDesign:HintAssist.Hint="Stock"/>
+
+            
+
+                    <!-- Botón de Modificar -->
+                    <Button Content="Modificar" Width="125" Margin="10" Background="#9e1717" Foreground="White" />
+                </StackPanel>
+            </ScrollViewer>
+
+
+            <!-- Sección de imagen y botón (columna derecha) -->
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="10">
+                <!-- Imagen de ejemplo -->
+                <Border BorderBrush="Black" BorderThickness="1" Width="150" Height="200">
+                    <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
+                        <Image.RenderTransform>
+                            <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                        </Image.RenderTransform>
+                    </Image>
+
+
+                </Border>
+
+                <!-- Botón para cargar imagen -->
+                <Button Content="Cargar Imagen" Width="125" Margin="10" Background="#9e1717" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Botones de acciones (pueden ir aquí si es necesario) -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
-            <Button Content="Añadir Libro" Width="125" Margin="10" Background="#9e1717" Foreground="White" />
-            <Button Content="Editar Libro" Width="125" Margin="10" Background="#9e1717" Foreground="White" />
-            <Button Content="Eliminar Libro" Width="125" Margin="10" Background="#9e1717" Foreground="White" />
+            <!-- Botones adicionales pueden ir aquí -->
         </StackPanel>
     </Grid>
+
 </Window>
