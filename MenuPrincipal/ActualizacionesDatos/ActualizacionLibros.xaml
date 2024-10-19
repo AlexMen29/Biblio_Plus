@@ -41,33 +41,52 @@
                     <!-- Título -->
                     <Label Content="Editar Libro" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="5" />
 
-                    <!-- Campos de texto -->
-                    <TextBox x:Name="EditTituloTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Titulo"/>
-                    <TextBox x:Name="EditDescripcionTextBox" Margin="5" Foreground="Black"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:HintAssist.Hint="Descripción" AcceptsReturn="True" Height="100" />  
-                    <TextBox x:Name="EditAutorTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Autor"/>
-                    <TextBox x:Name="EditEditorialTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Editorial"/>
-                    <TextBox x:Name="EditCategoriaTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Categoría"/>
-                    <TextBox x:Name="EditEdicionTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Edición"/>
-                    <TextBox x:Name="EditStockTextBox" Margin="5" Foreground="Black" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 materialDesign:HintAssist.Hint="Stock"/>
+                    <!-- Campos de texto modificables -->
+                                <TextBox x:Name="EditTituloTextBox" Margin="5" Foreground="Black" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     materialDesign:HintAssist.Hint="Titulo"/>
 
-            
+                                <TextBox x:Name="EditDescripcionTextBox" Margin="5" Foreground="Black"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     materialDesign:HintAssist.Hint="Descripción" AcceptsReturn="True" Height="100"/>
+
+                                <TextBox x:Name="EditEdicionTextBox" Margin="5" Foreground="Black" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     materialDesign:HintAssist.Hint="Edición"/>
+
+                             
+
+                    <StackPanel Margin="0,10">
+                        <TextBlock Text="Autor" Foreground="#FF2196F3" Opacity="0.75" />
+                        <ComboBox x:Name="EditAutorComboBox" Margin="5" Foreground="Black" 
+                      Style="{StaticResource MaterialDesignComboBox}"/>
+                    </StackPanel>
+
+
+
+                    <StackPanel Margin="0,10">
+                        <TextBlock Text="Editorial" Foreground="#FF2196F3" Opacity="0.75" />
+                        <ComboBox x:Name="EditEditorialComboBox"  Foreground="Black" 
+                      Style="{StaticResource MaterialDesignComboBox}"/>
+                    </StackPanel>
+
+
+                    <StackPanel Margin="0,10">
+                        <TextBlock Text="Categoria" Foreground="#FF2196F3" Opacity="0.75"/>
+                        <ComboBox x:Name="EditCategoriaComboBox"  Foreground="Black" 
+                      Style="{StaticResource MaterialDesignComboBox}"/>
+                    </StackPanel>
+
+
+
+
+
+
+
+
 
                     <!-- Botón de Modificar -->
-                    <Button Content="Modificar" Width="125" Margin="10" Background="#9e1717" Foreground="White" />
+                    <Button Name="bntModificar" Content="Modificar" Width="125" Margin="10" Background="#9e1717" Foreground="White" Click="bntModificar_Click" />
                 </StackPanel>
             </ScrollViewer>
 
@@ -76,18 +95,17 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="10">
                 <!-- Imagen de ejemplo -->
                 <Border BorderBrush="Black" BorderThickness="1" Width="150" Height="200">
-                    <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
+                    <Image x:Name="ImagePreview" Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
                         <Image.RenderTransform>
                             <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
                         </Image.RenderTransform>
                     </Image>
-
-
                 </Border>
 
                 <!-- Botón para cargar imagen -->
-                <Button Content="Cargar Imagen" Width="125" Margin="10" Background="#9e1717" Foreground="White"/>
+                <Button Name="btnCargarImagen"  Content="Cargar Imagen" Width="125" Margin="10" Background="#9e1717" Foreground="White" Click="btnCargarImagen_Click"/>
             </StackPanel>
+
         </Grid>
 
         <!-- Botones de acciones (pueden ir aquí si es necesario) -->

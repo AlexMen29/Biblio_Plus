@@ -142,6 +142,7 @@
 
                         <!-- Columnas del DataGrid -->
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding DetalleID}" Width="*" />
                             <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*" />
                             <DataGridTextColumn Header="Autor" Binding="{Binding Autor}" Width="*" />
                             <DataGridTextColumn Header="Editorial" Binding="{Binding Editorial}" Width="*" />

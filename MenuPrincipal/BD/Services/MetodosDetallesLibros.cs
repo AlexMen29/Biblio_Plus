@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace MenuPrincipal.BD.Services
 {
@@ -41,7 +42,9 @@ namespace MenuPrincipal.BD.Services
                                     Editorial = dr["Editorial"].ToString(),
                                     Categoria = dr["Categoria"].ToString(),
                                     Edicion = dr["Edicion"].ToString(), // Asegúrate de que este sea el tipo correcto
-                                    StockActual = int.Parse(dr["StockActual"].ToString())
+                                    StockActual = int.Parse(dr["StockActual"].ToString()),
+                                    DetalleID = int.Parse(dr["DetalleID"].ToString())
+
                                 };
 
                                 lstLibros.Add(libro);
@@ -57,6 +60,50 @@ namespace MenuPrincipal.BD.Services
             return lstLibros;
         }
         //fin de metodo detalles libros
+
+
+        public static ArrayList ObtenerIdModLibros(string Autor, string Editorial, string Categoria)
+        {
+            ArrayList list = new ArrayList();
+
+            try
+            {
+
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+                {
+                    conn.Open();
+
+
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "ObtenerIdModLibros"; // Asegúrate de que este sea el nombre correcto
+                                                                    // Agregar los parámetros al comando
+                        command.Parameters.AddWithValue("@NombreAutor", Autor);
+                        command.Parameters.AddWithValue("@NombreEditorial", Editorial);
+                        command.Parameters.AddWithValue("@NombreCategoria", Categoria);
+
+                        using (DbDataReader dr = command.ExecuteReader())
+                        {
+                            while (dr.Read()) 
+                            {
+                                list.Add(dr["Resultado"]);
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocurrió un error: " + e.Message, "Validación", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
+            return list;
+        }
 
 
        

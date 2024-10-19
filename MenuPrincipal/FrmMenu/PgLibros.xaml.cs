@@ -1,6 +1,7 @@
 ﻿using MenuPrincipal.ActualizacionesDatos;
 using MenuPrincipal.BD.Models;
 using MenuPrincipal.BD.Services;
+using MenuPrincipal.DatosGenerales;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,12 @@ namespace MenuPrincipal.FrmMenu
     /// </summary>
     public partial class PgLibros : Page
     {
+
+        //Instancia para datos generales
+        DatosGlobales datos = new DatosGlobales();
+       
+        
+
         private DataTable dataTable;
         public PgLibros()
         {
@@ -34,13 +41,15 @@ namespace MenuPrincipal.FrmMenu
             CargarDatos();
 
 
-            LlenarBoxFiltros("SELECT DISTINCT A.NombreAutor FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Autores A ON DL.AutorID = A.AutorID", AutorComboBox,"NombreAutor");
-            LlenarBoxFiltros("SELECT DISTINCT E.NombreEditorial FROM Libros L  JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Editoriales E ON DL.EditorialID = E.EditorialID", EditorialComboBox, "NombreEditorial");
-            LlenarBoxFiltros("SELECT DISTINCT C.NombreCategoria  FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Categorias C ON DL.CategoriaID = C.CategoriaID", CategoriaComboBox,"NombreCategoria");
+            LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
+            LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
+            LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox,"NombreCategoria");
         }
 
         public List<DetallesLibros> ListaDataGrid;
         DetallesLibros Libros;
+     
+        
 
         SqlConnection conDB = new SqlConnection(MenuPrincipal.Properties.Settings.Default.conexionDB);
 
@@ -73,7 +82,7 @@ namespace MenuPrincipal.FrmMenu
                     if (row["imagen"] != DBNull.Value)
                     {
                         byte[] imageBytes = (byte[])row["imagen"];
-                        BitmapImage bitmapImage = ConvertirABitmapImage(imageBytes);
+                        BitmapImage bitmapImage = datos.ConvertirABitmapImage(imageBytes);
                         row["ImageData"] = bitmapImage;
                     }
                 }
@@ -91,18 +100,7 @@ namespace MenuPrincipal.FrmMenu
                 conDB.Close();
             }
         }
-        private BitmapImage ConvertirABitmapImage(byte[] imageBytes)
-        {
-            using (var ms = new System.IO.MemoryStream(imageBytes))
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
-            }
-        }
+       
 
 
 
@@ -123,26 +121,33 @@ namespace MenuPrincipal.FrmMenu
 
         public void LlenarBoxFiltros(string consulta, ComboBox elementoBox, string columna)
         {
-            //Lista con valores correspondientes a ComboBox
-            List<string> Lista = new List<string>();
-            using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+            try
             {
-                conn.Open();
-
-                using (var command = new SqlCommand(consulta, conn))
+                //Lista con valores correspondientes a ComboBox
+                List<string> Lista = new List<string>();
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
                 {
-                    using (DbDataReader dr = command.ExecuteReader())
+                    conn.Open();
+
+                    using (var command = new SqlCommand(consulta, conn))
                     {
-                        while (dr.Read())
+                        using (DbDataReader dr = command.ExecuteReader())
                         {
-                            Lista.Add(dr[columna].ToString());
+                            while (dr.Read())
+                            {
+                                Lista.Add(dr[columna].ToString());
+                            }
+                            Lista.Add("Ninguno");
                         }
-                        Lista.Add("Ninguno");
                     }
                 }
-            }
 
-            elementoBox.ItemsSource = Lista; // Asigna la lista al ComboBox
+                elementoBox.ItemsSource = Lista; // Asigna la lista al ComboBox
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error inesperado: {e.Message}");
+            }
         }
 
 

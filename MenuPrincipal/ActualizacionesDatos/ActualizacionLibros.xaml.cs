@@ -13,10 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-
+using Microsoft.Win32; // Para OpenFileDialog
+using System.IO;       // Para manejar streams
+using System.Windows.Media.Imaging; // Para BitmapImage
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using MenuPrincipal.DatosGenerales;
+using System.Data.Common;
+using MenuPrincipal.BD.Services;
 
 
 namespace MenuPrincipal.ActualizacionesDatos
@@ -27,6 +33,7 @@ namespace MenuPrincipal.ActualizacionesDatos
     public partial class ActualizacionLibros : Window
     {
         private DetallesLibros Libros;
+        DatosGlobales datos = new DatosGlobales();
         public ActualizacionLibros(DetallesLibros Libros)
         {
             InitializeComponent();
@@ -39,13 +46,15 @@ namespace MenuPrincipal.ActualizacionesDatos
         public void CargarDatos()
         {
             CargarImgDes();
-            EditTituloTextBox.Text = Libros.Titulo;
-            EditAutorTextBox.Text = Libros.Autor;
-            EditEditorialTextBox.Text = Libros.Editorial;
-            EditCategoriaTextBox.Text = Libros.Categoria;
+            EditTituloTextBox.Text = Libros.Titulo;         
             EditEdicionTextBox.Text = Libros.Edicion;
+           
 
-            
+            LlenarCajas(datos.consultaAutor, EditAutorComboBox, "NombreAutor",Libros.Autor);
+            LlenarCajas(datos.consultaEdiorial, EditEditorialComboBox, "NombreEditorial",Libros.Editorial);
+            LlenarCajas(datos.consultaCategoria, EditCategoriaComboBox, "NombreCategoria",Libros.Categoria);
+
+
 
             // Mostrar el panel de edición
         }
@@ -109,7 +118,7 @@ namespace MenuPrincipal.ActualizacionesDatos
                 if (imagenBytes != null)
                 {
                     // Convertir los bytes a BitmapImage usando el método
-                    BitmapImage imagen = ConvertirABitmapImage(imagenBytes);
+                    BitmapImage imagen = datos.ConvertirABitmapImage(imagenBytes);
 
                     // Crear un ViewModel temporal para establecer la imagen
                     var viewModel = new { ImageData = imagen };
@@ -129,22 +138,100 @@ namespace MenuPrincipal.ActualizacionesDatos
 
         }
 
-        private BitmapImage ConvertirABitmapImage(byte[] imageBytes)
+
+
+        //Cargar datos para modificacion de Autor, Editorial y categoria
+
+        public void LlenarCajas(string consulta, ComboBox elementoBox, string columna, string valorPorDefecto)
         {
-            using (var ms = new System.IO.MemoryStream(imageBytes))
+            try
             {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
+                // Lista con valores correspondientes a ComboBox
+                List<string> Lista = new List<string>();
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+                {
+                    conn.Open();
+
+                    using (var command = new SqlCommand(consulta, conn))
+                    {
+                        using (DbDataReader dr = command.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Lista.Add(dr[columna].ToString());
+                            }
+                        }
+                    }
+                }
+
+                // Asigna la lista de valores al ComboBox
+                elementoBox.ItemsSource = Lista;
+
+                // Establece el valor por defecto que ya está registrado en la base de datos
+                if (!string.IsNullOrEmpty(valorPorDefecto) && Lista.Contains(valorPorDefecto))
+                {
+                    elementoBox.SelectedItem = valorPorDefecto;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error inesperado: {e.Message}");
             }
         }
 
+        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Archivos de imagen (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+            };
+
+            // Mostrar el explorador de archivos
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Obtener la ruta de la imagen seleccionada
+                string rutaImagen = openFileDialog.FileName;
+
+                byte[] imageBytes = File.ReadAllBytes(rutaImagen);
+
+                // Reutilizar el método de la clase DatosGlobales para convertir los bytes a BitmapImage
+                BitmapImage imagen = datos.ConvertirABitmapImage(imageBytes);
+
+                // Asignar la imagen al control Image
+                ImagePreview.Source = imagen;
+            }
+        }
+
+        private void bntModificar_Click(object sender, RoutedEventArgs e)
+        {
+
+            ObtenerId();
 
 
+        }
 
 
+        private ArrayList ObtenerId()
+        {
+            ArrayList id = new ArrayList();
+            id = MetodosDetallesLibros.ObtenerIdModLibros(EditAutorComboBox.SelectedItem.ToString(), EditEditorialComboBox.SelectedItem.ToString(), EditCategoriaComboBox.SelectedItem.ToString());
+
+            if (id.Count > 0)
+            {
+                // Usar String.Join para concatenar los elementos de la lista en una cadena
+                string valores = string.Join(", ", id.Cast<object>().Select(i => i.ToString()));
+
+                MessageBox.Show("Valores: " + valores);
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron valores.");
+            }
+
+
+            return id;
+            
+        }
     }
 }
