@@ -34,7 +34,7 @@ namespace MenuPrincipal.FrmMenu
         
 
         private DataTable dataTable;
-        public PgLibros()
+        public PgLibros(int Nivel)
         {
             InitializeComponent();
             CargarDatos();
@@ -44,6 +44,11 @@ namespace MenuPrincipal.FrmMenu
             LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
             LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
             LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox,"NombreCategoria");
+            if (Nivel == 1)
+            {
+                tabAdministrador.Visibility = Visibility.Collapsed;
+
+            }
         }
 
         public List<DetallesLibros> ListaDataGrid;

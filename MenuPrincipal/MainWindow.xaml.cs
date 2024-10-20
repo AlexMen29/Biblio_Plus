@@ -68,7 +68,7 @@ namespace MenuPrincipal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PgLibros Page1= new PgLibros();
+            PgLibros Page1= new PgLibros(0);
             frContenido.NavigationService.Navigate(Page1);
 
             ImgLogo.Visibility=Visibility.Hidden;

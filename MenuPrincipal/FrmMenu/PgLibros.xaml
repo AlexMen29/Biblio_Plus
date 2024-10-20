@@ -93,7 +93,7 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Administrar">
+            <TabItem Name="tabAdministrador" Header="Administrar">
 
 
                 <Grid Margin="10">
