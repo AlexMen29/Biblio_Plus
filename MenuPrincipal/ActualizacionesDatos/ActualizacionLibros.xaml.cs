@@ -23,6 +23,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using MenuPrincipal.DatosGenerales;
 using System.Data.Common;
 using MenuPrincipal.BD.Services;
+using MenuPrincipal.FrmMenu;
 
 
 namespace MenuPrincipal.ActualizacionesDatos
@@ -34,13 +35,21 @@ namespace MenuPrincipal.ActualizacionesDatos
     {
         private DetallesLibros Libros;
         DatosGlobales datos = new DatosGlobales();
+        public string IsbnEdicion;
+
+       
+
+
         public ActualizacionLibros(DetallesLibros Libros)
         {
             InitializeComponent();
             this.Libros = Libros;
+            this.IsbnEdicion = Libros.Edicion;
 
             CargarDatos();
         }
+
+       
 
 
         public void CargarDatos()
@@ -206,7 +215,30 @@ namespace MenuPrincipal.ActualizacionesDatos
         private void bntModificar_Click(object sender, RoutedEventArgs e)
         {
 
-            ObtenerId();
+            ArrayList ids=ObtenerId();
+            int AutorId = Convert.ToInt32(ids[0]);
+            int EditorialId= Convert.ToInt32(ids[1]);
+            int CategoriaId=Convert.ToInt32(ids[2]);
+            int edicionId=Convert.ToInt32(ids[3]);
+
+            byte[] imagenBytes = ConvertImageToByteArray(ImagePreview);
+
+            int res=MetodosCRUD.ActualizarLibro(Libros.DetalleID,AutorId, EditorialId, CategoriaId, edicionId,IsbnEdicion,EditDescripcionTextBox.Text,EditTituloTextBox.Text, imagenBytes);
+
+            if (res > 0)
+            {
+                MessageBox.Show("Actualizacion realizada exitosamente ", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Actualizacion de data grid con los nuevos datos
+
+                //PgLibros pgLibros = new PgLibros();
+                //pgLibros.CargarDatos();
+
+                this.Close();
+
+              
+
+            }
+      
 
 
         }
@@ -215,14 +247,13 @@ namespace MenuPrincipal.ActualizacionesDatos
         private ArrayList ObtenerId()
         {
             ArrayList id = new ArrayList();
-            id = MetodosDetallesLibros.ObtenerIdModLibros(EditAutorComboBox.SelectedItem.ToString(), EditEditorialComboBox.SelectedItem.ToString(), EditCategoriaComboBox.SelectedItem.ToString());
+            id = MetodosDetallesLibros.ObtenerIdModLibros(EditAutorComboBox.SelectedItem.ToString(), EditEditorialComboBox.SelectedItem.ToString(), EditCategoriaComboBox.SelectedItem.ToString(),IsbnEdicion);
 
             if (id.Count > 0)
             {
                 // Usar String.Join para concatenar los elementos de la lista en una cadena
                 string valores = string.Join(", ", id.Cast<object>().Select(i => i.ToString()));
 
-                MessageBox.Show("Valores: " + valores);
             }
             else
             {
@@ -233,5 +264,27 @@ namespace MenuPrincipal.ActualizacionesDatos
             return id;
             
         }
+
+        public static byte[] ConvertImageToByteArray(Image imageControl)
+        {
+            byte[] imageBytes = null;
+
+            // Verifica si el Source de la imagen es un BitmapImage
+            if (imageControl.Source is BitmapImage bitmapImage)
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    // Crea un encoder para convertir la imagen a un arreglo de bytes
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                    encoder.Save(memoryStream);
+
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
+
+            return imageBytes;
+        }
+
     }
 }
