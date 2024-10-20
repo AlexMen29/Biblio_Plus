@@ -11,7 +11,7 @@ namespace MenuPrincipal.BD.Models
     {
         public int LibrosID { get; set; }
         public string Titulo { get; set; }
-        public Image Imagen { get; set; }
+        public byte[] ImageData { get; set; }
         public string Descripcion { get; set; }
         public string EstadoLibro { get; set; }
         public int AutorID { get; set; }

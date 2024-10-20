@@ -37,9 +37,9 @@ namespace MenuPrincipal.FrmMenu
         public PgLibros()
         {
             InitializeComponent();
-            CargarTodosLosElementos();
             CargarDatos();
-
+            CargarLibrosRecientes();
+            CargarLibrosPoesia();
 
             LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
             LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
@@ -55,11 +55,6 @@ namespace MenuPrincipal.FrmMenu
 
 
         //Funcion creada para llamar solo una vez para cargar todos los elementos
-        private void CargarTodosLosElementos()
-        {
-            CargarElementosPorGenero("SELECT TOP 3* FROM LIBROS ORDER BY LibroID DESC", contentGrid);
-            CargarElementosPorGenero("SELECT *FROM LIBROS WHERE EditorialID=2", contenGridDrama);
-        }
 
         //funcion que carga elementos segun genero
         private void CargarElementosPorGenero(string query,ItemsControl contenGrid)
@@ -100,12 +95,18 @@ namespace MenuPrincipal.FrmMenu
                 conDB.Close();
             }
         }
-       
 
+        private void CargarLibrosRecientes()
+        {
+            string query = "SELECT TOP 4 e.Titulo, e.Imagen, a.NombreAutor FROM Ediciones e INNER JOIN DetallesLibros d ON e.EdicionID = d.EdicionID INNER JOIN Categorias c ON d.CategoriaID = c.CategoriaID INNER JOIN Autores a ON d.AutorID = a.AutorID ORDER BY e.EdicionID DESC;";
+            CargarElementosPorGenero(query, contentGridRecientes);
+        }
 
-
-
-
+        private void CargarLibrosPoesia()
+        {
+            string query = "SELECT TOP 4 e.Titulo, e.Imagen, a.NombreAutor FROM Ediciones e INNER JOIN DetallesLibros d ON e.EdicionID = d.EdicionID INNER JOIN Categorias c ON d.CategoriaID = c.CategoriaID INNER JOIN Autores a ON d.AutorID = a.AutorID WHERE c.CategoriaID = 2 ORDER BY e.EdicionID DESC;"; 
+            CargarElementosPorGenero(query, contentGridPoesia);
+        }
 
         #region ADMINISTRADOR
 
