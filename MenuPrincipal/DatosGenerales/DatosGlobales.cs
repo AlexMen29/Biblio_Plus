@@ -13,9 +13,9 @@ namespace MenuPrincipal.DatosGenerales
         public DatosGlobales() { }
 
 
-        public  string consultaAutor= "SELECT DISTINCT A.NombreAutor FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Autores A ON DL.AutorID = A.AutorID";
-        public string consultaEdiorial= "SELECT DISTINCT E.NombreEditorial FROM Libros L  JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Editoriales E ON DL.EditorialID = E.EditorialID";
-        public string consultaCategoria= "SELECT DISTINCT C.NombreCategoria  FROM Libros L JOIN DetallesLibros DL ON L.DetallesID = DL.DetallesID JOIN Categorias C ON DL.CategoriaID = C.CategoriaID";
+        public  string consultaAutor= "select NombreAutor from Autores";
+        public string consultaCategoria = "select NombreCategoria from Categorias";
+        public string consultaEdiorial= "select NombreEditorial from Editoriales";
 
         public BitmapImage ConvertirABitmapImage(byte[] imageBytes)
         {

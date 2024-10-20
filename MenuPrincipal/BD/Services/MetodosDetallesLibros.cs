@@ -62,7 +62,7 @@ namespace MenuPrincipal.BD.Services
         //fin de metodo detalles libros
 
 
-        public static ArrayList ObtenerIdModLibros(string Autor, string Editorial, string Categoria)
+        public static ArrayList ObtenerIdModLibros(string Autor, string Editorial, string Categoria,string ISBN)
         {
             ArrayList list = new ArrayList();
 
@@ -82,6 +82,7 @@ namespace MenuPrincipal.BD.Services
                         command.Parameters.AddWithValue("@NombreAutor", Autor);
                         command.Parameters.AddWithValue("@NombreEditorial", Editorial);
                         command.Parameters.AddWithValue("@NombreCategoria", Categoria);
+                        command.Parameters.AddWithValue("@ISBN", ISBN);
 
                         using (DbDataReader dr = command.ExecuteReader())
                         {
