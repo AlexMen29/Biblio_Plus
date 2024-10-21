@@ -47,7 +47,7 @@ namespace MenuPrincipal.FrmMenu
             if (Nivel == 1)
             {
                 tabAdministrador.Visibility = Visibility.Collapsed;
-
+                tabAllBooks.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -111,6 +111,12 @@ namespace MenuPrincipal.FrmMenu
         {
             string query = "SELECT TOP 4 e.Titulo, e.Imagen, a.NombreAutor FROM Ediciones e INNER JOIN DetallesLibros d ON e.EdicionID = d.EdicionID INNER JOIN Categorias c ON d.CategoriaID = c.CategoriaID INNER JOIN Autores a ON d.AutorID = a.AutorID WHERE c.CategoriaID = 2 ORDER BY e.EdicionID DESC;"; 
             CargarElementosPorGenero(query, contentGridPoesia);
+        }
+
+        private void CargarLibrosTodos()
+        {
+            string query = "SELECT e.Titulo, e.Imagen, a.NombreAutor FROM Ediciones e INNER JOIN DetallesLibros d ON e.EdicionID = d.EdicionID INNER JOIN Categorias c ON d.CategoriaID = c.CategoriaID INNER JOIN Autores a ON d.AutorID = a.AutorID ORDER BY e.Titulo ASC;";
+            CargarElementosPorGenero(query, contentGridTodos);
         }
 
         #region ADMINISTRADOR
@@ -280,6 +286,11 @@ namespace MenuPrincipal.FrmMenu
         {
             ActualizacionLibros VentanaActualizacion = new ActualizacionLibros(Libros);
             VentanaActualizacion.ShowDialog();
+        }
+
+        private void gpbTodos_Loaded(object sender, RoutedEventArgs e)
+        {
+            CargarLibrosTodos();
         }
     }
 
