@@ -36,20 +36,26 @@
                                     <DataTemplate>
                                         <StackPanel Margin="10" Width="150">
                                             <!-- Imagen -->
-                                            <Border Width="120" Height="180">
-                                                <Border.Effect>
-                                                    <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
-                                                </Border.Effect>
-                                                <Image Source="{Binding ImageData}" Width="120" Stretch="UniformToFill" >
-                                                    <Image.RenderTransform>
-                                                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                                                    </Image.RenderTransform>
-                                                </Image>
-                                            </Border>
+                                            <Button x:Name="btnDetalles" Width="120" Height="180" Click="btnDetalles_Click">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="120" Height="180">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
+                                                            </Border.Effect>
+                                                            <Image Source="{Binding ImageData}" Width="120" Stretch="UniformToFill" >
+                                                                <Image.RenderTransform>
+                                                                    <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                                                                </Image.RenderTransform>
+                                                            </Image>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
                                             <!-- Nombre -->
-                                            <TextBlock Text="{Binding Titulo}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
-                                            <!-- Tipo -->
-                                            <TextBlock Text="{Binding NombreAutor}" Foreground="Black" HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding Titulo}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
+                                                    <!-- Tipo -->
+                                                    <TextBlock Text="{Binding NombreAutor}" Foreground="Black" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -70,16 +76,22 @@
                                     <DataTemplate>
                                         <StackPanel Margin="10" Width="120">
                                             <!-- Imagen -->
-                                            <Border Width="120" Height="180">
-                                                <Border.Effect>
-                                                    <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
-                                                </Border.Effect>
-                                                <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
-                                                    <Image.RenderTransform>
-                                                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                                                    </Image.RenderTransform>
-                                                </Image>
-                                            </Border>
+                                            <Button x:Name="btnDetalles" Width="120" Height="180" Click="btnDetalles_Click">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="120" Height="180">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
+                                                            </Border.Effect>
+                                                        <Image Source="{Binding ImageData}" Width="120" Height="180" Stretch="UniformToFill">
+                                                            <Image.RenderTransform>
+                                                                <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                                                            </Image.RenderTransform>
+                                                        </Image>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
                                             <!-- Nombre -->
                                             <TextBlock Text="{Binding Titulo}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
                                             <!-- Tipo -->
@@ -94,7 +106,7 @@
                 </ScrollViewer>
             </TabItem>
             
-            <TabItem Name="tabAllBooks" Header="Libros">
+            <TabItem Name="tabAllBooks" Header="Libros" Width="80">
 
                 <ScrollViewer Grid.Column="1"
               Margin="10,10"
@@ -116,16 +128,22 @@
                                     <DataTemplate>
                                         <StackPanel Margin="10" Width="150">
                                             <!-- Imagen -->
-                                            <Border Width="120" Height="180">
-                                                <Border.Effect>
-                                                    <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
-                                                </Border.Effect>
-                                                <Image Source="{Binding ImageData}" Width="120" Stretch="UniformToFill" >
-                                                    <Image.RenderTransform>
-                                                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
-                                                    </Image.RenderTransform>
-                                                </Image>
-                                            </Border>
+                                            <Button x:Name="btnDetalles" Width="120" Height="180" Click="btnDetalles_Click">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="120" Height="180">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect ShadowDepth="4" BlurRadius="8"/>
+                                                            </Border.Effect>
+                                                            <Image Source="{Binding ImageData}" Width="120" Stretch="UniformToFill" >
+                                                                <Image.RenderTransform>
+                                                                    <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                                                                </Image.RenderTransform>
+                                                            </Image>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
                                             <!-- Nombre -->
                                             <TextBlock Text="{Binding Titulo}" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,5,5,0" Foreground="Black"/>
                                             <!-- Tipo -->

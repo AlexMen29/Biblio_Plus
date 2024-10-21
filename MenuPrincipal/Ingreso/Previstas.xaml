@@ -19,9 +19,9 @@
 
 
             <!-- Contenido de la ventana -->
-            <Grid HorizontalAlignment="Center" Margin="0,150,0,100"  >
+            <Grid HorizontalAlignment="Center" Margin="0,150,0,0" Height="470" VerticalAlignment="Top"  >
 
-                <Rectangle Height="700" VerticalAlignment="Top" RadiusX="10" RadiusY="10">
+                <Rectangle Height="470" VerticalAlignment="Center" RadiusX="10" RadiusY="10">
                     <Rectangle.Fill>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <GradientStop Color = "#8d1415"/>
@@ -31,7 +31,7 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <Rectangle Fill="White" Margin="10,10,10,10" RadiusX="10" RadiusY="10">
+                <Rectangle Fill="White" Margin="10,10,10,0" RadiusX="10" RadiusY="10" Height="450" VerticalAlignment="Top">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="15" Color="#FFBBBBBB" Direction="0" RenderingBias="Quality"/>
                     </Rectangle.Effect>
@@ -39,7 +39,7 @@
 
                 <Grid Height="240" Width="280" VerticalAlignment="Bottom" Margin="0,100">
                     <Label Content="LOGIN" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="Gray" FontSize="18"/>
-                    <StackPanel VerticalAlignment="Center" Margin="15">
+                    <StackPanel VerticalAlignment="Top" Margin="15,40,15,0">
                         <TextBox x:Name="txtCorreo" Margin="0,10" FontSize="18" FontFamily="Corbel Light"
                                  materialDesign:HintAssist.Hint="Correo"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -53,9 +53,9 @@
                     </StackPanel>
                 </Grid>
 
-                <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,85" Click="BtnIngresar_Click" />
-                <TextBlock Text="¿Olvidó su contraseña?" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30" Foreground="Gray" Cursor="Hand" />
-                <Image Margin="0,20,0,350" Width="100" Source="/Assets/book.png" HorizontalAlignment="Center" />
+                <Button x:Name="btnIngresar" Content="Ingresar" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,353,0,0" Click="BtnIngresar_Click" />
+                <TextBlock Text="¿Olvidó su contraseña?" HorizontalAlignment="Center" Margin="0,424,0,0" Foreground="Gray" Cursor="Hand" Height="16" VerticalAlignment="Top" />
+                <Image Margin="0,20,0,0" Width="100" Source="/Assets/book.png" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" />
             </Grid>
 
             <!-- Rectángulos superiores -->

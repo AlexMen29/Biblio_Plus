@@ -2,6 +2,7 @@
 using MenuPrincipal.BD.Models;
 using MenuPrincipal.BD.Services;
 using MenuPrincipal.DatosGenerales;
+using MenuPrincipal.DetallesL;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -30,17 +31,17 @@ namespace MenuPrincipal.FrmMenu
 
         //Instancia para datos generales
         DatosGlobales datos = new DatosGlobales();
-       
         
 
         private DataTable dataTable;
+        private int Nivel;
         public PgLibros(int Nivel)
         {
             InitializeComponent();
             CargarDatos();
             CargarLibrosRecientes();
             CargarLibrosPoesia();
-
+            this.Nivel = Nivel;
             LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
             LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
             LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox,"NombreCategoria");
@@ -48,6 +49,7 @@ namespace MenuPrincipal.FrmMenu
             {
                 tabAdministrador.Visibility = Visibility.Collapsed;
                 tabAllBooks.Visibility = Visibility.Collapsed;
+                
             }
         }
 
@@ -274,10 +276,6 @@ namespace MenuPrincipal.FrmMenu
 
             labSeleccion.Content += $"Elemento Seleccionado: {Libros.Titulo}";
 
-
-
-
-
         }
 
      
@@ -292,11 +290,18 @@ namespace MenuPrincipal.FrmMenu
         {
             CargarLibrosTodos();
         }
+
+        private void btnDetalles_Click(object sender, RoutedEventArgs e)
+        {
+            if (Nivel != 1)
+            {
+                Detalles Ventana = new Detalles();
+                Ventana.ShowDialog();
+            }
+            else {
+                MessageBox.Show("Por favor inicie sesión para visualizar los detalles del libro", "Inicie Sesión",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+
+        }
     }
-
-
-
-
-
-
 }

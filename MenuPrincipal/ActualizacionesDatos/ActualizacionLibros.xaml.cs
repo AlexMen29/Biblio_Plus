@@ -37,9 +37,6 @@ namespace MenuPrincipal.ActualizacionesDatos
         DatosGlobales datos = new DatosGlobales();
         public string IsbnEdicion;
 
-       
-
-
         public ActualizacionLibros(DetallesLibros Libros)
         {
             InitializeComponent();
