@@ -16,6 +16,9 @@ namespace MenuPrincipal.DatosGenerales
         public  string consultaAutor= "select NombreAutor from Autores";
         public string consultaCategoria = "select NombreCategoria from Categorias";
         public string consultaEdiorial= "select NombreEditorial from Editoriales";
+        public string consultaTipoUsuario= "select Tipo from TipoUsuario";
+        public string consultaCarrera = "select NombreCarrera from Carrera";
+        
 
         public BitmapImage ConvertirABitmapImage(byte[] imageBytes)
         {
