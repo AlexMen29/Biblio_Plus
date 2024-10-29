@@ -15,6 +15,7 @@ using Microsoft.Data.SqlClient;
 using MenuPrincipal.FrmMenu;
 using MenuPrincipal.PagePrestamos;
 using MenuPrincipal.PageUsuarios;
+using MenuPrincipal.ActualizacionesDatos;
 
 
 namespace MenuPrincipal
@@ -95,6 +96,19 @@ namespace MenuPrincipal
             Usuarios Page4 = new Usuarios();    
             frContenido .NavigationService.Navigate(Page4);
             ImgLogo.Visibility = Visibility.Hidden;
+        }
+
+        private void btnActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            ModDatosGenerales MenuMod = new ModDatosGenerales();
+            MenuMod.Owner= this;
+            ImgLogo.Visibility = Visibility.Hidden;
+            MenuMod.ShowDialog();
+        }
+
+        public void NavegarAContenido(Page pagina)
+        {
+            frContenido.Navigate(pagina);
         }
     }
 }

@@ -53,21 +53,14 @@
                             <Button HorizontalAlignment="Stretch" Margin="10" Content="Libros" Width="139" Click="Button_Click"/>
                             <Button x:Name="btnPrestamo" Content="Prestamos" Width="140" Height="30" Margin="0,12,0,0" Cursor="Hand" Click="btnPrestamo_Click"/>
                             <Button x:Name="btnUsuarios" Content="Usuarios" Width="140" Height="30" Margin="0,12,0,0" Cursor="Hand" Click="btnUsuarios_Click"/>
+                            <Button x:Name="btnActualizar" Content="Actualizar Datos" Width="140" Height="30" Margin="0,12,0,0" Cursor="Hand" Click="btnActualizar_Click"/>
                             <Button x:Name="btnreport" Content="report" Width="140"  Height="30" Margin="0,12,0,0" Click="btnreport_Click" Cursor="Hand"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
             </Grid>
 
-            <!-- Agregar el título "Títulos Recientemente Subidos" -->
-            <Label Content="Títulos Recientemente Subidos"
-                   FontSize="16"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Margin="20,30,25,0"
-                   Grid.Column="1" />
-
+           
             <!-- Rectángulos superiores -->
             <Rectangle Margin="0,0,0,0" VerticalAlignment="Top" Height="25" Grid.Column="1">
                 <Rectangle.Fill>
