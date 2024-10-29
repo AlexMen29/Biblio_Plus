@@ -23,12 +23,61 @@ namespace MenuPrincipal.ActualizacionesDatos
         public ModDatosGenerales()
         {
             InitializeComponent();
+            
         }
 
         private void btnCarrera_Click(object sender, RoutedEventArgs e)
         {
             //frContenido
             PagEditCarrera pag= new PagEditCarrera();
+
+            MainWindow mainWindow = (MainWindow)this.Owner;
+
+            // Usa el método NavegarAContenido para mostrar la Page en el Frame de la ventana principal
+            mainWindow.NavegarAContenido(pag);
+
+            this.Close();
+        }
+
+        private void btnCategorias_Click(object sender, RoutedEventArgs e)
+        {
+            PagEditCategorias pag = new PagEditCategorias();
+
+            MainWindow mainWindow = (MainWindow)this.Owner;
+
+            // Usa el método NavegarAContenido para mostrar la Page en el Frame de la ventana principal
+            mainWindow.NavegarAContenido(pag);
+
+            this.Close();
+        }
+
+        private void btnEditoriales_Click(object sender, RoutedEventArgs e)
+        {
+            PagEditEditoriales pag = new PagEditEditoriales();
+
+            MainWindow mainWindow = (MainWindow)this.Owner;
+
+            // Usa el método NavegarAContenido para mostrar la Page en el Frame de la ventana principal
+            mainWindow.NavegarAContenido(pag);
+
+            this.Close();
+        }
+
+        private void btnAutores_Click(object sender, RoutedEventArgs e)
+        {
+            PagEditAutores pag = new PagEditAutores();
+
+            MainWindow mainWindow = (MainWindow)this.Owner;
+
+            // Usa el método NavegarAContenido para mostrar la Page en el Frame de la ventana principal
+            mainWindow.NavegarAContenido(pag);
+
+            this.Close();
+        }
+
+        private void btnProveedores_Click(object sender, RoutedEventArgs e)
+        {
+            PagEditProveedores pag = new PagEditProveedores();
 
             MainWindow mainWindow = (MainWindow)this.Owner;
 

@@ -47,15 +47,15 @@
             <Button x:Name="btnCarrera" Content="Carrera" Width="140" Height="40" Margin="10" 
                  Cursor="Hand" Grid.Row="0" Grid.Column="0" Click="btnCarrera_Click"/>
             <Button x:Name="btnCategorias" Content="Categorías" Width="140" Height="40" Margin="10" 
-                 Cursor="Hand" Grid.Row="0" Grid.Column="1"/>
+                 Cursor="Hand" Grid.Row="0" Grid.Column="1" Click="btnCategorias_Click"/>
 
             <!-- Segunda fila de botones -->
             <Button x:Name="btnEditoriales" Content="Editoriales" Width="140" Height="40" Margin="10" 
-                 Cursor="Hand" Grid.Row="1" Grid.Column="0" />
+                 Cursor="Hand" Grid.Row="1" Grid.Column="0" Click="btnEditoriales_Click" />
             <Button x:Name="btnAutores" Content="Autores" Width="140" Height="40" Margin="10" 
-                 Cursor="Hand" Grid.Row="1" Grid.Column="1"/>
+                 Cursor="Hand" Grid.Row="1" Grid.Column="1" Click="btnAutores_Click"/>
             <Button x:Name="btnProveedores" Content="Proveedores" Width="140" Height="40" Margin="10" 
-                 Cursor="Hand" Grid.Row="1" Grid.Column="2" />
+                 Cursor="Hand" Grid.Row="1" Grid.Column="2" Click="btnProveedores_Click" />
         </Grid>
     </Grid>
 </Window>
