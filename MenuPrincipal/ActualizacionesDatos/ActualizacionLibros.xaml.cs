@@ -35,6 +35,10 @@ namespace MenuPrincipal.ActualizacionesDatos
     {
         private DetallesLibros Libros;
         DatosGlobales datos = new DatosGlobales();
+
+        PgLibros MetodoPg = new PgLibros(0);
+        
+
         public string IsbnEdicion;
 
         public ActualizacionLibros(DetallesLibros Libros)
@@ -227,8 +231,21 @@ namespace MenuPrincipal.ActualizacionesDatos
                 MessageBox.Show("Actualizacion realizada exitosamente ", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Actualizacion de data grid con los nuevos datos
 
-                //PgLibros pgLibros = new PgLibros();
-                //pgLibros.CargarDatos();
+              
+
+                //instancia donde se encuentra el elemento frame(aca mostramos todo)
+                MainWindow mainWindow = (MainWindow)this.Owner;
+                ((MainWindow)Application.Current.MainWindow).CargarLibros(1);
+                ((MainWindow)Application.Current.MainWindow).CargarLibros(0);
+
+                //cerramos
+                //Abrimos ventana
+
+
+
+
+
+
 
                 this.Close();
 

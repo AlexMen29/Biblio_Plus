@@ -69,12 +69,28 @@ namespace MenuPrincipal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PgLibros Page1= new PgLibros(0);
-            frContenido.NavigationService.Navigate(Page1);
 
-            ImgLogo.Visibility=Visibility.Hidden;
+            CargarLibros(0);
 
+
+        }
+
+      
+
+        public void CargarLibros(int Cerrar)
+        {
+            if (Cerrar == 1)
+            {
+                frContenido.NavigationService.Navigate(null);
+            }
+            else
+            {
+                PgLibros Page1 = new PgLibros(0);
+                frContenido.NavigationService.Navigate(Page1);
           
+
+                ImgLogo.Visibility = Visibility.Hidden;
+            }
         }
 
         private void btnreport_Click(object sender, RoutedEventArgs e)
@@ -108,7 +124,11 @@ namespace MenuPrincipal
 
         public void NavegarAContenido(Page pagina)
         {
-            frContenido.Navigate(pagina);
+            
+             frContenido.Navigate(pagina);
+            
+          
+            
         }
     }
 }

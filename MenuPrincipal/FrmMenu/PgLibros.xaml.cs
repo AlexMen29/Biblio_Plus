@@ -49,8 +49,23 @@ namespace MenuPrincipal.FrmMenu
             {
                 tabAdministrador.Visibility = Visibility.Collapsed;
                 tabAllBooks.Visibility = Visibility.Collapsed;
-                
+                TabControlLibros.SelectedIndex = 0;
             }
+            else
+            {
+
+                TabControlLibros.SelectedIndex = 2;
+            }
+        } 
+
+        public void CargarAllDatos()
+        {
+            CargarDatos();
+            CargarLibrosRecientes();
+            CargarLibrosPoesia();
+            LlenarBoxFiltros(datos.consultaAutor, AutorComboBox, "NombreAutor");
+            LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
+            LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox, "NombreCategoria");
         }
 
         public List<DetallesLibros> ListaDataGrid;
