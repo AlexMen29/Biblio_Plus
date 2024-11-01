@@ -59,7 +59,7 @@ namespace MenuPrincipal.DatosGenerales
                             {
                                 Lista.Add(dr[columna].ToString());
                             }
-                            Lista.Add("Ninguno");
+                            //Lista.Add("Ninguno");
                         }
                     }
                 }
@@ -71,6 +71,48 @@ namespace MenuPrincipal.DatosGenerales
                 MessageBox.Show($"Error inesperado: {e.Message}");
             }
         }
+
+        //Inicio ,metodo:
+
+        public void AsignarValorTextBox(string consulta, string valorWhere, TextBox textBoxDestino, string parametro)
+        {
+            try
+            {
+                //// Eliminación de espacios para asegurar formato correcto
+                //valorWhere = valorWhere.Replace(" ", "");
+
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+                {
+                    conn.Open();
+
+                    using (var command = new SqlCommand(consulta, conn))
+                    {
+                        // Agregar el parámetro WHERE a la consulta
+                        command.Parameters.AddWithValue(parametro, valorWhere);
+
+                        using (var dr = command.ExecuteReader())
+                        {
+                            if (dr.Read()) // Si hay un resultado, asignarlo al TextBox
+                            {
+                                textBoxDestino.Text = dr[0].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontró ningún valor que coincida con el filtro especificado.",
+                                                "Resultado no encontrado", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error inesperado: {e.Message}", "Error de consulta", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
 
 
     }

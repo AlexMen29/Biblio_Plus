@@ -16,6 +16,7 @@ using MenuPrincipal.FrmMenu;
 using MenuPrincipal.PagePrestamos;
 using MenuPrincipal.PageUsuarios;
 using MenuPrincipal.ActualizacionesDatos;
+using MenuPrincipal.CompraDeLibros;
 
 
 namespace MenuPrincipal
@@ -129,6 +130,13 @@ namespace MenuPrincipal
             
           
             
+        }
+
+        private void btnComprarLibros_Click(object sender, RoutedEventArgs e)
+        {
+            CompraLibros pageCompraLibros = new CompraLibros();
+            frContenido.NavigationService.Navigate(pageCompraLibros);
+            ImgLogo.Visibility = Visibility.Hidden;
         }
     }
 }

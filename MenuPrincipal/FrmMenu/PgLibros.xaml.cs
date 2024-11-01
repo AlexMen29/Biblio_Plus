@@ -259,7 +259,7 @@ namespace MenuPrincipal.FrmMenu
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ActualizacionLibros VentanaActualizacion = new ActualizacionLibros(Libros);
+            ActualizacionLibros VentanaActualizacion = new ActualizacionLibros(Libros,0);
             VentanaActualizacion.ShowDialog();
         }
 

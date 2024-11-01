@@ -39,7 +39,7 @@
                 <StackPanel Background="Transparent" x:Name="EditPanel">
 
                     <!-- Título -->
-                    <Label Content="Editar Libro" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="5" />
+                    <Label Name="LabTitulo" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="5" />
 
                     <!-- Campos de texto modificables -->
                                 <TextBox x:Name="EditTituloTextBox" Margin="5" Foreground="Black" 

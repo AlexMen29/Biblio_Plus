@@ -8,6 +8,7 @@ using System.Windows;
 
 
 using System.Data.SqlClient;
+using MenuPrincipal.BD.Models;
 
 namespace MenuPrincipal.BD.Services
 {
@@ -47,9 +48,56 @@ namespace MenuPrincipal.BD.Services
             {
                 MessageBox.Show("Ocurrió un error: " + e.Message, "Error de consulta", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+            MessageBox.Show("Id de respuesta: "+compraIDGenerado);
             return compraIDGenerado;
+
+        
         }
+
+        //Inicio nuevo metodo
+
+        public static int CrearDatosLibros(CrearDatoLibroModel libro)
+        {
+            int resultado = 0; // Variable para almacenar el resultado de la ejecución
+
+            try
+            {
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+                {
+                    conn.Open();
+
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "sp_CrearDatosLibros";
+
+                        // Agregar parámetros al comando usando el objeto de tipo LibrosModel
+                        command.Parameters.AddWithValue("@ISBN", libro.ISBN);
+                        command.Parameters.AddWithValue("@Descripcion", libro.Descripcion);
+                        command.Parameters.AddWithValue("@Titulo", libro.Titulo);
+                        command.Parameters.AddWithValue("@Imagen", libro.Imagen);
+                        command.Parameters.AddWithValue("@AutorID", libro.AutorID);
+                        command.Parameters.AddWithValue("@EditorialID", libro.EditorialID);
+                        command.Parameters.AddWithValue("@CategoriaID", libro.CategoriaID);
+                        command.Parameters.AddWithValue("@StockMinimo", libro.StockMinimo);
+                        command.Parameters.AddWithValue("@StockMaximo", libro.StockMaximo);
+
+                        // Ejecutar el comando y obtener el resultado
+                        resultado = Convert.ToInt32(command.ExecuteScalar());
+                        MessageBox.Show("Exito en metodo "+resultado);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocurrió un error: " + e.Message, "Error de consulta", MessageBoxButton.OK, MessageBoxImage.Error);
+                resultado = -1; // Retornar un valor específico en caso de error
+            }
+
+            return resultado; // Devolver el resultado de la ejecución
+        }
+
+
     }
 
 

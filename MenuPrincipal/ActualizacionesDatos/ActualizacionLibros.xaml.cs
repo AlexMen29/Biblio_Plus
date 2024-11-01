@@ -24,6 +24,7 @@ using MenuPrincipal.DatosGenerales;
 using System.Data.Common;
 using MenuPrincipal.BD.Services;
 using MenuPrincipal.FrmMenu;
+using MenuPrincipal.CompraDeLibros;
 
 
 namespace MenuPrincipal.ActualizacionesDatos
@@ -34,31 +35,60 @@ namespace MenuPrincipal.ActualizacionesDatos
     public partial class ActualizacionLibros : Window
     {
         private DetallesLibros Libros;
+        private CrearDatoLibroModel DatosCrearLibros;
         DatosGlobales datos = new DatosGlobales();
+        MetodosCompras MetodosCompras = new MetodosCompras();
+ 
+        
 
-        PgLibros MetodoPg = new PgLibros(0);
+
+
         
 
         public string IsbnEdicion;
+        private int ModificarCrear;
 
-        public ActualizacionLibros(DetallesLibros Libros)
+        CrearDatoLibroModel datoLibroModel = new CrearDatoLibroModel();
+        CompraLibros CompraLibros = new CompraLibros();
+
+
+        public ActualizacionLibros(DetallesLibros Libros, int ModificarCrear)//0=Modficar y 1=Crear
         {
             InitializeComponent();
-            this.Libros = Libros;
-            this.IsbnEdicion = Libros.Edicion;
 
-            CargarDatos();
+
+            this.ModificarCrear= ModificarCrear;
+           
+                this.Libros = Libros;
+                this.IsbnEdicion = Libros.Edicion;
+                LabTitulo.Content = "Editar Datos de Libro";
+
+                CargarDatosModificar();
+             
         }
 
-       
+        //Constructor para crear libros
+        public  ActualizacionLibros(CrearDatoLibroModel Libros, int ModificarCrear)//0=Modficar y 1=Crear
+        {
+            InitializeComponent();
+            this.DatosCrearLibros = Libros;
+            this.ModificarCrear= ModificarCrear;
+            LabTitulo.Content = "Ingreso de Nuevo Libro";
 
 
-        public void CargarDatos()
+            CargarDatosSeleccionar();
+        }
+
+
+
+
+
+
+        public void CargarDatosModificar()
         {
             CargarImgDes();
             EditTituloTextBox.Text = Libros.Titulo;         
-            EditEdicionTextBox.Text = Libros.Edicion;
-           
+            EditEdicionTextBox.Text = Libros.Edicion;         
 
             LlenarCajas(datos.consultaAutor, EditAutorComboBox, "NombreAutor",Libros.Autor);
             LlenarCajas(datos.consultaEdiorial, EditEditorialComboBox, "NombreEditorial",Libros.Editorial);
@@ -66,7 +96,17 @@ namespace MenuPrincipal.ActualizacionesDatos
 
 
 
+
             // Mostrar el panel de edición
+        }
+
+        public void CargarDatosSeleccionar()
+        {
+            datos.LlenarBoxFiltros(datos.consultaAutor, EditAutorComboBox, "NombreAutor");
+            datos.LlenarBoxFiltros(datos.consultaEdiorial, EditEditorialComboBox, "NombreEditorial");
+            datos.LlenarBoxFiltros(datos.consultaCategoria, EditCategoriaComboBox, "NombreCategoria");
+            bntModificar.Content = "Finalizar Compra";
+
         }
 
         public List<object> ObtenerImgDescripcion(string edicion)
@@ -215,23 +255,37 @@ namespace MenuPrincipal.ActualizacionesDatos
 
         private void bntModificar_Click(object sender, RoutedEventArgs e)
         {
+            if (ModificarCrear == 0)
+            {
+                modifcar();
+            }
+            else
+            {
+                IngresarLibro();
+            }
+            
+          
 
-            ArrayList ids=ObtenerId();
+        }
+
+        private void modifcar()
+        {
+            ArrayList ids = ObtenerId();
             int AutorId = Convert.ToInt32(ids[0]);
-            int EditorialId= Convert.ToInt32(ids[1]);
-            int CategoriaId=Convert.ToInt32(ids[2]);
-            int edicionId=Convert.ToInt32(ids[3]);
+            int EditorialId = Convert.ToInt32(ids[1]);
+            int CategoriaId = Convert.ToInt32(ids[2]);
+            int edicionId = Convert.ToInt32(ids[3]);
 
             byte[] imagenBytes = ConvertImageToByteArray(ImagePreview);
 
-            int res=MetodosCRUD.ActualizarLibro(Libros.DetalleID,AutorId, EditorialId, CategoriaId, edicionId,IsbnEdicion,EditDescripcionTextBox.Text,EditTituloTextBox.Text, imagenBytes);
+            int res = MetodosCRUD.ActualizarLibro(Libros.DetalleID, AutorId, EditorialId, CategoriaId, edicionId, IsbnEdicion, EditDescripcionTextBox.Text, EditTituloTextBox.Text, imagenBytes);
 
             if (res > 0)
             {
                 MessageBox.Show("Actualizacion realizada exitosamente ", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Actualizacion de data grid con los nuevos datos
 
-              
+
 
                 //instancia donde se encuentra el elemento frame(aca mostramos todo)
                 MainWindow mainWindow = (MainWindow)this.Owner;
@@ -241,42 +295,36 @@ namespace MenuPrincipal.ActualizacionesDatos
                 //cerramos
                 //Abrimos ventana
 
-
-
-
-
-
-
                 this.Close();
 
-              
 
             }
-      
-
 
         }
 
 
-        private ArrayList ObtenerId()
+        private ArrayList ObtenerId() //0 Inexistente  diferen
         {
-            ArrayList id = new ArrayList();
-            id = MetodosDetallesLibros.ObtenerIdModLibros(EditAutorComboBox.SelectedItem.ToString(), EditEditorialComboBox.SelectedItem.ToString(), EditCategoriaComboBox.SelectedItem.ToString(),IsbnEdicion);
+         
+                ArrayList id = new ArrayList();
+                id = MetodosDetallesLibros.ObtenerIdModLibros(EditAutorComboBox.SelectedItem.ToString(), EditEditorialComboBox.SelectedItem.ToString(), EditCategoriaComboBox.SelectedItem.ToString(), IsbnEdicion);
+                if (id.Count > 0)
+                {
+                    // Usar String.Join para concatenar los elementos de la lista en una cadena
+                    string valores = string.Join(", ", id.Cast<object>().Select(i => i.ToString()));
 
-            if (id.Count > 0)
-            {
-                // Usar String.Join para concatenar los elementos de la lista en una cadena
-                string valores = string.Join(", ", id.Cast<object>().Select(i => i.ToString()));
-
-            }
-            else
-            {
-                MessageBox.Show("No se encontraron valores.");
-            }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron valores.");
+                }
 
 
-            return id;
+                return id;
+
             
+
+
         }
 
         public static byte[] ConvertImageToByteArray(Image imageControl)
@@ -299,6 +347,55 @@ namespace MenuPrincipal.ActualizacionesDatos
 
             return imageBytes;
         }
+
+        #region Logica para Crear Libros
+
+        private void IngresarLibro()
+        {
+            DatosCrearLibros.Titulo=EditTituloTextBox.Text;
+            DatosCrearLibros.Descripcion = EditDescripcionTextBox.Text;
+            DatosCrearLibros.ISBN = EditEdicionTextBox.Text;
+            byte[] imagenBytes = ConvertImageToByteArray(ImagePreview);
+            DatosCrearLibros.Imagen=imagenBytes;
+
+            //obtener id correspondiente a datos seleccionado
+            IsbnEdicion = DatosCrearLibros.ISBN;
+            ArrayList ids = ObtenerId();
+            int AutorId = Convert.ToInt32(ids[0]);
+            int EditorialId = Convert.ToInt32(ids[1]);
+            int CategoriaId = Convert.ToInt32(ids[2]);
+
+            DatosCrearLibros.AutorID = AutorId;
+            DatosCrearLibros.EditorialID = EditorialId;
+            DatosCrearLibros.CategoriaID = CategoriaId;
+
+            int res = MetodosCompras.CrearDatosLibros(DatosCrearLibros);
+
+            if (res == 0)
+            {
+                MessageBox.Show("Creacion realizada exitosamente ", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Actualizacion de data grid con los nuevos datos
+
+                //CompraLibros compraLibros = new CompraLibros();
+                //compraLibros.crearRegistroCompra(DatosCrearLibros.ISBN);
+ 
+                this.Close();
+
+            }
+
+
+
+
+        }
+
+        public string RecuperarEdicion()
+        {
+            string edicion=DatosCrearLibros.ISBN;
+            return edicion;
+        }
+
+
+        #endregion
 
     }
 }
