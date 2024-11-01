@@ -55,6 +55,45 @@ namespace MenuPrincipal.BD.Services
         }
 
 
+        //Inicio metodo
+
+        public static int ObtenerId(string consultaSql, Dictionary<string, object> parametros = null)
+        {
+            int idResultado = 0;
+
+            try
+            {
+                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
+                {
+                    conn.Open();
+
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = consultaSql;
+
+                        // Agregar los parámetros a la consulta si existen
+                        if (parametros != null)
+                        {
+                            foreach (var parametro in parametros)
+                            {
+                                command.Parameters.AddWithValue(parametro.Key, parametro.Value);
+                            }
+                        }
+
+                        // Ejecutar la consulta y obtener el resultado como entero
+                        idResultado = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocurrió un error: " + e.Message, "Error de consulta", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return idResultado;
+        }
+
 
     }
 }

@@ -42,9 +42,9 @@ namespace MenuPrincipal.FrmMenu
             CargarLibrosRecientes();
             CargarLibrosPoesia();
             this.Nivel = Nivel;
-            LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
-            LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
-            LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox,"NombreCategoria");
+            datos.LlenarBoxFiltros(datos.consultaAutor, AutorComboBox,"NombreAutor");
+            datos.LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
+            datos.LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox,"NombreCategoria");
             if (Nivel == 1)
             {
                 tabAdministrador.Visibility = Visibility.Collapsed;
@@ -58,15 +58,7 @@ namespace MenuPrincipal.FrmMenu
             }
         } 
 
-        public void CargarAllDatos()
-        {
-            CargarDatos();
-            CargarLibrosRecientes();
-            CargarLibrosPoesia();
-            LlenarBoxFiltros(datos.consultaAutor, AutorComboBox, "NombreAutor");
-            LlenarBoxFiltros(datos.consultaEdiorial, EditorialComboBox, "NombreEditorial");
-            LlenarBoxFiltros(datos.consultaCategoria, CategoriaComboBox, "NombreCategoria");
-        }
+   
 
         public List<DetallesLibros> ListaDataGrid;
         DetallesLibros Libros;
@@ -148,36 +140,6 @@ namespace MenuPrincipal.FrmMenu
 
 
 
-        public void LlenarBoxFiltros(string consulta, ComboBox elementoBox, string columna)
-        {
-            try
-            {
-                //Lista con valores correspondientes a ComboBox
-                List<string> Lista = new List<string>();
-                using (var conn = new SqlConnection(Properties.Settings.Default.conexionDB))
-                {
-                    conn.Open();
-
-                    using (var command = new SqlCommand(consulta, conn))
-                    {
-                        using (DbDataReader dr = command.ExecuteReader())
-                        {
-                            while (dr.Read())
-                            {
-                                Lista.Add(dr[columna].ToString());
-                            }
-                            Lista.Add("Ninguno");
-                        }
-                    }
-                }
-
-                elementoBox.ItemsSource = Lista; // Asigna la lista al ComboBox
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Error inesperado: {e.Message}");
-            }
-        }
 
 
         public void AplicarFiltro()
